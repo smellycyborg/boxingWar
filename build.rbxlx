@@ -862,7 +862,6 @@ workspace.Part.Touched:Connect(function(otherPart)
         return 
     else
         Characters[player].canHurt = false
-        
         takeHealth(player)
         print('MESSAGE: took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
         print()
