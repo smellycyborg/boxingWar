@@ -6,8 +6,8 @@ game.Players.PlayerAdded:Connect(function(player)
     --/ potions
     data[player].Potions = {}
     local potions = data[player].Potions
-    potions['halfHealth'] = true
-    potions['fullHealth'] = true
+    potions['halfHealth'] = {bool = true, value = 50}
+    potions['fullHealth'] = {bool = true, value = 100}
 
     --/ canHurt
     data[player].canHurt = true

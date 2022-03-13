@@ -1,13 +1,16 @@
 local potionEvent = game.ReplicatedStorage.remoteEvents.potionEvent
 local data = require(game.ServerScriptService.Server.data)
 
-potionEvent.OnServerEvent:Connect(function(player)
+potionEvent.OnServerEvent:Connect(function(player, potion)
     local potions = data[player].Potions
+    local potionBool = potions[potion].bool
+    local potionValue = potions[potion].value
 
-    local hasPotion = potions['halfHealth'] == true
+    local hasPotion = potionBool == true
     if hasPotion then
-        potions['halfHealth'] = false
-        player.Character.Humanoid.Health = 100
-        print(player.Name .. ' took a full health potion and now has 100 health :)')
+        potions[potion].bool = false
+        player.Character.Humanoid.Health = potionValue
+
+        print(player.Name .. ' took a '.. potion .. ' potion and has been given more health :)')
     end
 end)
