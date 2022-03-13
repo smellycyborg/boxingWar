@@ -11,6 +11,6 @@ potionEvent.OnServerEvent:Connect(function(player, potion)
         potions[potion].bool = false
         player.Character.Humanoid.Health = potionValue
 
-        print(player.Name .. ' took a '.. potion .. ' potion and has been given more health :)')
+        game.TestService:Message(player.Name .. ' took a '.. potion .. ' potion and has been given more health :)')
     end
 end)

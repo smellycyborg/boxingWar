@@ -12,8 +12,7 @@ function damageHealth(player)
     if playerInZone and characterCanHurt then 
         data[player].canHurt = false
         takeHealth(player)
-        print('MESSAGE: took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
-        print()
+        warn('MESSAGE: took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
         wait(2)
         data[player].canHurt = true
     else

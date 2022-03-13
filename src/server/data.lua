@@ -12,13 +12,13 @@ game.Players.PlayerAdded:Connect(function(player)
     --/ canHurt
     data[player].canHurt = true
 
-    print('data has been added for '..player.Name)
+    warn('data has been added for '..player.Name)
 end)
 
-game.Player.PlayerRemoving:Connect(function(player)
+game.Players.PlayerRemoving:Connect(function(player)
     data[player] = nil 
 
-    print('data has been removed for ' ..player.Name)
+    warn('data has been removed for ' ..player.Name)
 end)
 
 return data

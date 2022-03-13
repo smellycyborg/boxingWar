@@ -7,13 +7,13 @@ local zone = zonePlus.new(container)
 
 zone.playerEntered:Connect(function(player)
     table.insert(inZone, player)
-    print(("%s entered the zone!"):format(player.Name))
+    game.TestService:Message(("%s entered the zone!"):format(player.Name))
 end)
 
 zone.playerExited:Connect(function(player)
     local playerIndex = table.find(inZone, player)
     table.remove(inZone, playerIndex)
-    print(("%s exited the zone!"):format(player.Name))
+    game.TestService:Message(("%s exited the zone!"):format(player.Name))
 end)
 
 return inZone
