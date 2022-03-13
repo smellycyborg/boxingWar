@@ -618,8 +618,10 @@ gcLgc4RKxr21zq2UlJSM]]></BinaryString>
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse('Mouse')
 
+local potion = 'fullHealth'
+
 mouse.Button1Up:Connect(function()
-    potionEvent:FireServer()
+    potionEvent:FireServer(potion)
 end)]]></ProtectedString>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
@@ -874,13 +876,13 @@ local zone = zonePlus.new(container)
 
 zone.playerEntered:Connect(function(player)
     table.insert(inZone, player)
-    print(("%s entered the zone!"):format(player.Name))
+    game.TestService:Message(("%s entered the zone!"):format(player.Name))
 end)
 
 zone.playerExited:Connect(function(player)
     local playerIndex = table.find(inZone, player)
     table.remove(inZone, playerIndex)
-    print(("%s exited the zone!"):format(player.Name))
+    game.TestService:Message(("%s exited the zone!"):format(player.Name))
 end)
 
 return inZone
@@ -910,8 +912,7 @@ function damageHealth(player)
     if playerInZone and characterCanHurt then 
         data[player].canHurt = false
         takeHealth(player)
-        print('MESSAGE: took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
-        print()
+        warn('MESSAGE: took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
         wait(2)
         data[player].canHurt = true
     else
@@ -935,14 +936,23 @@ return damageHealth]]></ProtectedString>
 
 game.Players.PlayerAdded:Connect(function(player)
     data[player] = {}
+
+    --/ potions
+    data[player].Potions = {}
+    local potions = data[player].Potions
+    potions['halfHealth'] = {bool = true, value = 50}
+    potions['fullHealth'] = {bool = true, value = 100}
+
+    --/ canHurt
     data[player].canHurt = true
 
-    --// potions
-    data[player].hasHalfHealthPotion = false
-    data[player].hasFullHealthPotion = true
-    data[player].hasSpeedPotion = false
+    warn('data has been added for '..player.Name)
+end)
 
-    print('data has been created for '..player.Name)
+game.Players.PlayerRemoving:Connect(function(player)
+    data[player] = nil 
+
+    warn('data has been removed for ' ..player.Name)
 end)
 
 return data]]></ProtectedString>
@@ -959,12 +969,20 @@ return data]]></ProtectedString>
 					<string name="Name">takesPotion</string>
 					<string name="ScriptGuid">{240987B8-86CC-41DA-816F-6CC8E06F4C5D}</string>
 					<ProtectedString name="Source"><![CDATA[local potionEvent = game.ReplicatedStorage.remoteEvents.potionEvent
-local data = game.ServerScriptService.Server.data
+local data = require(game.ServerScriptService.Server.data)
 
-potionEvent.OnServerEvent:Connect(function(player)
-    data[player].hasFullHealthPotion = false
-    player.Character.Humanoid.Health = 100
-    print(player.Name .. ' took a full health potion and now has 100 health :)')
+potionEvent.OnServerEvent:Connect(function(player, potion)
+    local potions = data[player].Potions
+    local potionBool = potions[potion].bool
+    local potionValue = potions[potion].value
+
+    local hasPotion = potionBool == true
+    if hasPotion then
+        potions[potion].bool = false
+        player.Character.Humanoid.Health = potionValue
+
+        game.TestService:Message(player.Name .. ' took a '.. potion .. ' potion and has been given more health :)')
+    end
 end)]]></ProtectedString>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>

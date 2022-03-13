@@ -1,13 +1,13 @@
-local inZone = require(game.ServerScriptService.Server.inZone)
+local inSmokeZone = require(game.ServerScriptService.Server.inSmokeZone)
 local data = require(game.ServerScriptService.Server.data)
 
 function takeHealth(player)
     player.Character.Humanoid.Health -= 25
 end
 
-function damageHealth(player)
+function dealSmokeDamage(player)
     local characterCanHurt = data[player].canHurt == true
-    local playerInZone = table.find(inZone, player)
+    local playerInZone = table.find(inSmokeZone, player)
 
     if playerInZone and characterCanHurt then 
         data[player].canHurt = false
@@ -20,4 +20,4 @@ function damageHealth(player)
     end
 end
 
-return damageHealth
+return dealSmokeDamage
