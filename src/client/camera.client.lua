@@ -2,11 +2,10 @@ local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:wait()
 
 local fieldOfView = 75
-local offset = Vector3.new(-5 ,35, 10)
+local offset = Vector3.new(-5 ,15, 12)
 local camera = workspace.CurrentCamera
 
 local runService = game:GetService('RunService')
-
 
 function onRenderStep()
     camera.FieldOfView = fieldOfView
