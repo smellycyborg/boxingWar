@@ -322,100 +322,109 @@ gcLgc4RKxr21zq2UlJSM]]></BinaryString>
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="Part" referent="RBX9D382C184E904B75ABB0F7CB6BBBF21B">
+		<Item class="Folder" referent="RBXE29472DD2F034B1CA916A9322FB99070">
 			<Properties>
-				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
-				<float name="BackParamA">-0.5</float>
-				<float name="BackParamB">0.5</float>
-				<token name="BackSurface">0</token>
-				<token name="BackSurfaceInput">0</token>
-				<float name="BottomParamA">-0.5</float>
-				<float name="BottomParamB">0.5</float>
-				<token name="BottomSurface">0</token>
-				<token name="BottomSurfaceInput">0</token>
-				<CoordinateFrame name="CFrame">
-					<X>-0.125</X>
-					<Y>5.50000381</Y>
-					<Z>2</Z>
-					<R00>1</R00>
-					<R01>0</R01>
-					<R02>0</R02>
-					<R10>0</R10>
-					<R11>1</R11>
-					<R12>0</R12>
-					<R20>0</R20>
-					<R21>0</R21>
-					<R22>1</R22>
-				</CoordinateFrame>
-				<bool name="CanCollide">false</bool>
-				<bool name="CanQuery">true</bool>
-				<bool name="CanTouch">true</bool>
-				<bool name="CastShadow">true</bool>
-				<int name="CollisionGroupId">0</int>
-				<Color3uint8 name="Color3uint8">4279249628</Color3uint8>
-				<PhysicalProperties name="CustomPhysicalProperties">
-					<CustomPhysics>false</CustomPhysics>
-				</PhysicalProperties>
-				<float name="FrontParamA">-0.5</float>
-				<float name="FrontParamB">0.5</float>
-				<token name="FrontSurface">0</token>
-				<token name="FrontSurfaceInput">0</token>
-				<float name="LeftParamA">-0.5</float>
-				<float name="LeftParamB">0.5</float>
-				<token name="LeftSurface">0</token>
-				<token name="LeftSurfaceInput">0</token>
-				<bool name="Locked">false</bool>
-				<bool name="Massless">false</bool>
-				<token name="Material">256</token>
-				<string name="MaterialVariantSerialized"></string>
-				<string name="Name">Part</string>
-				<CoordinateFrame name="PivotOffset">
-					<X>0</X>
-					<Y>0</Y>
-					<Z>0</Z>
-					<R00>1</R00>
-					<R01>0</R01>
-					<R02>0</R02>
-					<R10>0</R10>
-					<R11>1</R11>
-					<R12>0</R12>
-					<R20>0</R20>
-					<R21>0</R21>
-					<R22>1</R22>
-				</CoordinateFrame>
-				<float name="Reflectance">0</float>
-				<float name="RightParamA">-0.5</float>
-				<float name="RightParamB">0.5</float>
-				<token name="RightSurface">0</token>
-				<token name="RightSurfaceInput">0</token>
-				<int name="RootPriority">0</int>
-				<Vector3 name="RotVelocity">
-					<X>0</X>
-					<Y>0</Y>
-					<Z>0</Z>
-				</Vector3>
+				<string name="Name">zones</string>
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
-				<float name="TopParamA">-0.5</float>
-				<float name="TopParamB">0.5</float>
-				<token name="TopSurface">0</token>
-				<token name="TopSurfaceInput">0</token>
-				<float name="Transparency">0.300000012</float>
-				<UniqueId name="UniqueId">440bc071e0b54ab3023da99400045da7</UniqueId>
-				<Vector3 name="Velocity">
-					<X>0</X>
-					<Y>0</Y>
-					<Z>0</Z>
-				</Vector3>
-				<token name="formFactorRaw">1</token>
-				<token name="shape">1</token>
-				<Vector3 name="size">
-					<X>19.25</X>
-					<Y>11</Y>
-					<Z>16</Z>
-				</Vector3>
+				<UniqueId name="UniqueId">20d930e85d5da59d023ecfeb00451629</UniqueId>
 			</Properties>
+			<Item class="Part" referent="RBX9D382C184E904B75ABB0F7CB6BBBF21B">
+				<Properties>
+					<bool name="Anchored">true</bool>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-0.125</X>
+						<Y>5.50000381</Y>
+						<Z>2</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">false</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4279249628</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">false</bool>
+					<token name="Material">256</token>
+					<string name="MaterialVariantSerialized"></string>
+					<string name="Name">smokeZone</string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0.300000012</float>
+					<UniqueId name="UniqueId">440bc071e0b54ab3023da99400045da7</UniqueId>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<token name="formFactorRaw">1</token>
+					<token name="shape">1</token>
+					<Vector3 name="size">
+						<X>19.25</X>
+						<Y>11</Y>
+						<Z>16</Z>
+					</Vector3>
+				</Properties>
+			</Item>
 		</Item>
 	</Item>
 	<Item class="SoundService" referent="7">
@@ -841,91 +850,6 @@ end)]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 				<UniqueId name="UniqueId">4f5bea1deb0b79f0023db021000e91da</UniqueId>
 			</Properties>
-			<Item class="Script" referent="6">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<bool name="Disabled">false</bool>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">healthHandler</string>
-					<string name="ScriptGuid">{6082A0B6-C755-4F25-85C3-F62F9FB61229}</string>
-					<ProtectedString name="Source"><![CDATA[local damageHealth = require(game.ServerScriptService.Server.damageHealth)
-
-game.Players.PlayerAdded:Connect(function(player)
-    while true do
-        task.wait()
-        damageHealth(player)
-    end
-end)]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">440bc071e0b54ab3023da9940001af6e</UniqueId>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBX0499A71128754F04B9C33F0747FAC6D3">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">inZone</string>
-					<string name="ScriptGuid">{3F692C87-BFBB-4CFF-A43A-9B583A0397CD}</string>
-					<ProtectedString name="Source"><![CDATA[local zonePlus = require(game.ReplicatedStorage.Zone)
-
-local inZone = {}
-
-local container = workspace.Part
-local zone = zonePlus.new(container)
-
-zone.playerEntered:Connect(function(player)
-    table.insert(inZone, player)
-    game.TestService:Message(("%s entered the zone!"):format(player.Name))
-end)
-
-zone.playerExited:Connect(function(player)
-    local playerIndex = table.find(inZone, player)
-    table.remove(inZone, playerIndex)
-    game.TestService:Message(("%s exited the zone!"):format(player.Name))
-end)
-
-return inZone
-]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">4f5bea1deb0b79f0023db021000c83a8</UniqueId>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBX317CF32A092B4682AAFF489D1F16B825">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">damageHealth</string>
-					<string name="ScriptGuid">{A844FDD3-492C-4210-BEBC-B6E14CDD3FFC}</string>
-					<ProtectedString name="Source"><![CDATA[local inZone = require(game.ServerScriptService.Server.inZone)
-local data = require(game.ServerScriptService.Server.data)
-
-function takeHealth(player)
-    player.Character.Humanoid.Health -= 25
-end
-
-function damageHealth(player)
-    local characterCanHurt = data[player].canHurt == true
-    local playerInZone = table.find(inZone, player)
-
-    if playerInZone and characterCanHurt then 
-        data[player].canHurt = false
-        takeHealth(player)
-        warn('MESSAGE: took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
-        wait(2)
-        data[player].canHurt = true
-    else
-        return
-    end
-end
-
-return damageHealth]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">4f5bea1deb0b79f0023db021000c83aa</UniqueId>
-				</Properties>
-			</Item>
 			<Item class="ModuleScript" referent="RBX9B1AEC95832843FBA6D74DE1B6DF9DE4">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
@@ -987,6 +911,108 @@ end)]]></ProtectedString>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 					<UniqueId name="UniqueId">535409097c55f8d2023eb71800068dbc</UniqueId>
+				</Properties>
+			</Item>
+			<Item class="Script" referent="RBX38C1756D8E2B47C39EA7C29584BB85D5">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">healthDamageHandler</string>
+					<string name="ScriptGuid">{ACC136A1-EB67-4B0A-9AEC-D055C00082F8}</string>
+					<ProtectedString name="Source"><![CDATA[local dealDamage = require(game.ServerScriptService.Server.dealDamage)
+
+game.Players.PlayerAdded:Connect(function(player)
+    while true do
+        task.wait()
+        dealDamage.smoke(player)
+    end
+end)]]></ProtectedString>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">20d930e85d5da59d023ecfeb003e54cc</UniqueId>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX11667627DB3647378328644EB40B6B03">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">inSmokeZone</string>
+					<string name="ScriptGuid">{9ED35E0C-62A8-4100-A5AC-BD8FDD75E989}</string>
+					<ProtectedString name="Source"><![CDATA[local zonePlus = require(game.ReplicatedStorage.Zone)
+
+local inSmokeZone = {}
+
+local container = workspace.zones.smokeZone
+local zone = zonePlus.new(container)
+
+zone.playerEntered:Connect(function(player)
+    table.insert(inSmokeZone, player)
+    game.TestService:Message(("%s entered the zone!"):format(player.Name))
+end)
+
+zone.playerExited:Connect(function(player)
+    local playerIndex = table.find(inSmokeZone, player)
+    table.remove(inSmokeZone, playerIndex)
+    game.TestService:Message(("%s exited the zone!"):format(player.Name))
+end)
+
+return inSmokeZone
+]]></ProtectedString>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">20d930e85d5da59d023ecfeb00428bd7</UniqueId>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBXE71CD51E8C444A429E38E28AF88A9A2A">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">takeHealthHandler</string>
+					<string name="ScriptGuid">{A78CEDE0-6C88-4E50-8D40-DAC5B0ADA5C3}</string>
+					<ProtectedString name="Source"><![CDATA[local takeHealth = {}
+
+function takeHealth.smoke(player)
+    player.Character.Humanoid.Health -= 25
+end
+
+return takeHealth]]></ProtectedString>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">20d930e85d5da59d023ecfeb004b52df</UniqueId>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX9E2327207FC34ADF835BEA9AE8EB7980">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">dealDamage</string>
+					<string name="ScriptGuid">{16A066BE-7866-4812-9CA7-09C62546F96D}</string>
+					<ProtectedString name="Source"><![CDATA[local inSmokeZone = require(game.ServerScriptService.Server.inSmokeZone)
+local data = require(game.ServerScriptService.Server.data)
+local takeHealth = require(game.ServerScriptService.Server.takeHealthHandler)
+
+local dealDamage = {}
+
+function dealDamage.smoke(player)
+    local characterCanHurt = data[player].canHurt == true
+    if not characterCanHurt then return end
+
+    local playerInZone = table.find(inSmokeZone, player)
+
+    if playerInZone and characterCanHurt then 
+        data[player].canHurt = false
+        takeHealth.smoke(player)
+        warn('MESSAGE: smoke zone took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
+        wait(2)
+        data[player].canHurt = true
+    end
+end
+
+return dealDamage]]></ProtectedString>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">20d930e85d5da59d023ecfeb0053b661</UniqueId>
 				</Properties>
 			</Item>
 		</Item>
