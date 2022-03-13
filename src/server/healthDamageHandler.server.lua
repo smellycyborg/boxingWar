@@ -1,8 +1,8 @@
-local dealSmokeDamage = require(game.ServerScriptService.Server.dealSmokeDamage)
+local dealDamage = require(game.ServerScriptService.Server.dealDamage)
 
 game.Players.PlayerAdded:Connect(function(player)
     while true do
         task.wait()
-        dealSmokeDamage(player)
+        dealDamage.smoke(player)
     end
 end)

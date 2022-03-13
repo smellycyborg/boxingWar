@@ -2,7 +2,7 @@ local zonePlus = require(game.ReplicatedStorage.Zone)
 
 local inSmokeZone = {}
 
-local container = workspace.Part
+local container = workspace.zones.smokeZone
 local zone = zonePlus.new(container)
 
 zone.playerEntered:Connect(function(player)
