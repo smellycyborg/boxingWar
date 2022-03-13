@@ -5,9 +5,10 @@ local takeHealth = require(game.ServerScriptService.Server.takeHealthHandler)
 local dealDamage = {}
 
 function dealDamage.smoke(player)
-    local characterCanHurt = data[player].canHurt
-    if not characterCanHurt then return end
+    local inventory = data[player]
+    if not inventory then return end
 
+    local characterCanHurt = inventory.canHurt
     local playerInZone = table.find(inSmokeZone, player)
 
     if playerInZone and characterCanHurt == true then 
