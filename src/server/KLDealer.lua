@@ -1,5 +1,5 @@
-local inSmokeZone = require(game.ServerScriptService.Server.inSmokeZone)
-local data = require(game.ServerScriptService.Server.data)
+local Sdk = require(script.Parent)
+local inSmokeZone = require(Sdk.inSmokeZone)
 
 local KLDealer = {}
 
@@ -14,6 +14,7 @@ end
 function KLDealer.smoke(player)
     local DAMAGE = 25
 
+    local data = Sdk.data
     local inventory = data[player]
     if not inventory then return end
 

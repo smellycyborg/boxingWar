@@ -1,5 +1,5 @@
 local potionEvent = game.ReplicatedStorage.remoteEvents.potionEvent
-local Sdk = require(script.Parent)
+local Sdk = require(game.ServerScriptService.Server)
 
 potionEvent.OnServerEvent:Connect(function(player, potion)
     local data = Sdk.data
