@@ -80,27 +80,27 @@
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<CoordinateFrame name="CFrame">
-					<X>22.2366314</X>
-					<Y>11.3564014</Y>
-					<Z>20.9103699</Z>
-					<R00>0.0697666109</R00>
-					<R01>-0.568805754</R01>
-					<R02>0.81950748</R02>
+					<X>23.8219719</X>
+					<Y>18.2896671</Y>
+					<Z>12.680316</Z>
+					<R00>0.413119137</R00>
+					<R01>-0.707381964</R01>
+					<R02>0.573535919</R02>
 					<R10>-0</R10>
-					<R11>0.821509242</R11>
-					<R12>0.570195138</R12>
-					<R20>-0.997563362</R20>
-					<R21>-0.0397805832</R21>
-					<R22>0.0573139116</R22>
+					<R11>0.629790783</R11>
+					<R12>0.77676487</R12>
+					<R20>-0.910677075</R20>
+					<R21>-0.320896447</R21>
+					<R22>0.260178566</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
 				<token name="CameraType">0</token>
 				<float name="FieldOfView">70</float>
 				<token name="FieldOfViewMode">0</token>
 				<CoordinateFrame name="Focus">
-					<X>20.5976162</X>
-					<Y>10.216011</Y>
-					<Z>20.795742</Z>
+					<X>22.6749001</X>
+					<Y>16.7361374</Y>
+					<Z>12.1599588</Z>
 					<R00>1</R00>
 					<R01>0</R01>
 					<R02>0</R02>
@@ -647,6 +647,49 @@ end)]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 				<UniqueId name="UniqueId">440bc071e0b54ab3023da9940001af7a</UniqueId>
 			</Properties>
+			<Item class="LocalScript" referent="RBX6EF19B5D7B62463EA50DC7DC1FD8EBE1">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">Client</string>
+					<string name="ScriptGuid">{793B9872-4752-494F-83F4-F36955F8EB4C}</string>
+					<ProtectedString name="Source">print(&apos;hellow start character scripts&apos;)</ProtectedString>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">7449c5031b07628e023fdf2e003586ba</UniqueId>
+				</Properties>
+				<Item class="LocalScript" referent="RBXFD3BB8CCFC9B4B559BE4954DB5ECAC22">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<bool name="Disabled">false</bool>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">camera</string>
+						<string name="ScriptGuid">{532BC829-C993-4E63-96E4-244ECA471E13}</string>
+						<ProtectedString name="Source"><![CDATA[local player = game.Players.LocalPlayer 
+local character = player.Character or player.CharacterAdded:wait()
+
+local fieldOfView = 75
+local offset = Vector3.new(-5 ,15, 12)
+local camera = workspace.CurrentCamera
+
+local runService = game:GetService('RunService')
+
+function onRenderStep()
+    camera.FieldOfView = fieldOfView
+    camera.CameraType = Enum.CameraType.Scriptable
+    local playerPosition = character.HumanoidRootPart.Position
+    local cameraPosition = playerPosition + offset
+    camera.CoordinateFrame = CFrame.new(cameraPosition, playerPosition)
+end
+
+runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRenderStep)]]></ProtectedString>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+						<UniqueId name="UniqueId">7449c5031b07628e023fdf2e003586bb</UniqueId>
+					</Properties>
+				</Item>
+			</Item>
 		</Item>
 	</Item>
 	<Item class="StarterPack" referent="RBXEE9A42DFFBD549A58562684F09897B04">
@@ -670,6 +713,20 @@ end)]]></ProtectedString>
 			<UniqueId name="UniqueId">440bc071e0b54ab3023da9940001aedd</UniqueId>
 			<token name="VirtualCursorMode">0</token>
 		</Properties>
+		<Item class="LocalScript" referent="RBXEC24BC05255F4525AC444CBB715405AC">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">disableRobloxUi</string>
+				<string name="ScriptGuid">{7D74D0FA-7667-4EB6-8612-C1B980553A52}</string>
+				<ProtectedString name="Source"><![CDATA[game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+]]></ProtectedString>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+				<UniqueId name="UniqueId">0283994fdf8b01730240286c000683f5</UniqueId>
+			</Properties>
+		</Item>
 	</Item>
 	<Item class="LocalizationService" referent="RBX424F1C4C240042888E9411D5D11CBB1D">
 		<Properties>
@@ -992,19 +1049,22 @@ return takeHealth]]></ProtectedString>
 local data = require(game.ServerScriptService.Server.data)
 local takeHealth = require(game.ServerScriptService.Server.takeHealthHandler)
 
+local dmgTime = 2
+
 local dealDamage = {}
 
 function dealDamage.smoke(player)
-    local characterCanHurt = data[player].canHurt == true
-    if not characterCanHurt then return end
+    local inventory = data[player]
+    if not inventory then return end
 
+    local characterCanHurt = inventory.canHurt
     local playerInZone = table.find(inSmokeZone, player)
 
-    if playerInZone and characterCanHurt then 
+    if playerInZone and characterCanHurt == true then 
         data[player].canHurt = false
         takeHealth.smoke(player)
         warn('MESSAGE: smoke zone took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
-        wait(2)
+        wait(dmgTime)
         data[player].canHurt = true
     end
 end

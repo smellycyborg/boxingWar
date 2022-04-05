@@ -5,15 +5,18 @@ local inSmokeZone = {}
 local container = workspace.zones.smokeZone
 local zone = zonePlus.new(container)
 
-zone.playerEntered:Connect(function(player)
+local function onPlayerEntered(player)
     table.insert(inSmokeZone, player)
     game.TestService:Message(("%s entered the zone!"):format(player.Name))
-end)
+end
 
-zone.playerExited:Connect(function(player)
+local function onPlayerExited(player)
     local playerIndex = table.find(inSmokeZone, player)
     table.remove(inSmokeZone, playerIndex)
     game.TestService:Message(("%s exited the zone!"):format(player.Name))
-end)
+end
+
+zone.playerEntered:Connect(onPlayerEntered)
+zone.playerExited:Connect(onPlayerExited)
 
 return inSmokeZone
