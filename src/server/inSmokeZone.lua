@@ -1,5 +1,7 @@
 local zonePlus = require(game.ReplicatedStorage.Zone)
 
+-- TODO: rename to inZone so that there can be other types of damage zones or healing zones etc.
+
 local inSmokeZone = {}
 
 local container = workspace.zones.smokeZone

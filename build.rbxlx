@@ -540,7 +540,6 @@ gcLgc4RKxr21zq2UlJSM]]></BinaryString>
 			<string name="CommitInflightGuid"></string>
 			<int name="CommitInflightPlaceVersion">0</int>
 			<bool name="EnableScriptCollabByDefaultOnLoad">false</bool>
-			<bool name="EnableTeamCreateStreamingOnLoad">false</bool>
 			<string name="Name">StudioData</string>
 			<int64 name="SourceAssetId">-1</int64>
 			<int64 name="SrcPlaceId">0</int64>
@@ -622,7 +621,7 @@ gcLgc4RKxr21zq2UlJSM]]></BinaryString>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">takesPotion</string>
 						<string name="ScriptGuid">{4AF60E6E-32EB-482B-AE9E-0C703F6DDF9A}</string>
-						<ProtectedString name="Source"><![CDATA[local potionEvent = game.ReplicatedStorage.remoteEvents.potionEvent
+						<ProtectedString name="Source"><![CDATA[local potionEvent = game.ReplicatedStorage.potionEvent
 
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse('Mouse')
@@ -902,94 +901,13 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Server</string>
 				<string name="ScriptGuid">{BE3C36E4-47B2-45DE-B49C-0CBEA1134393}</string>
-				<ProtectedString name="Source">print(&quot;Hello world, from server!&quot;)</ProtectedString>
+				<ProtectedString name="Source"><![CDATA[local Sdk = require(script.KLSdk)
+
+Sdk.initialize()]]></ProtectedString>
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 				<UniqueId name="UniqueId">4f5bea1deb0b79f0023db021000e91da</UniqueId>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX9B1AEC95832843FBA6D74DE1B6DF9DE4">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">data</string>
-					<string name="ScriptGuid">{03881863-C5BA-420D-A888-B9F340668B87}</string>
-					<ProtectedString name="Source"><![CDATA[local data = {}
-
-game.Players.PlayerAdded:Connect(function(player)
-    data[player] = {}
-
-    --/ potions
-    data[player].Potions = {}
-    local potions = data[player].Potions
-    potions['halfHealth'] = {bool = true, value = 50}
-    potions['fullHealth'] = {bool = true, value = 100}
-
-    --/ canHurt
-    data[player].canHurt = true
-
-    warn('data has been added for '..player.Name)
-end)
-
-game.Players.PlayerRemoving:Connect(function(player)
-    data[player] = nil 
-
-    warn('data has been removed for ' ..player.Name)
-end)
-
-return data]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">4f5bea1deb0b79f0023db021001f0c0d</UniqueId>
-				</Properties>
-			</Item>
-			<Item class="Script" referent="RBX1740C6911FB44643A28025BC59C33EED">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<bool name="Disabled">false</bool>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">takesPotion</string>
-					<string name="ScriptGuid">{240987B8-86CC-41DA-816F-6CC8E06F4C5D}</string>
-					<ProtectedString name="Source"><![CDATA[local potionEvent = game.ReplicatedStorage.remoteEvents.potionEvent
-local data = require(game.ServerScriptService.Server.data)
-
-potionEvent.OnServerEvent:Connect(function(player, potion)
-    local potions = data[player].Potions
-    local potionBool = potions[potion].bool
-    local potionValue = potions[potion].value
-
-    local hasPotion = potionBool == true
-    if hasPotion then
-        potions[potion].bool = false
-        player.Character.Humanoid.Health = potionValue
-
-        game.TestService:Message(player.Name .. ' took a '.. potion .. ' potion and has been given more health :)')
-    end
-end)]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">535409097c55f8d2023eb71800068dbc</UniqueId>
-				</Properties>
-			</Item>
-			<Item class="Script" referent="RBX38C1756D8E2B47C39EA7C29584BB85D5">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<bool name="Disabled">false</bool>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">healthDamageHandler</string>
-					<string name="ScriptGuid">{ACC136A1-EB67-4B0A-9AEC-D055C00082F8}</string>
-					<ProtectedString name="Source"><![CDATA[local dealDamage = require(game.ServerScriptService.Server.dealDamage)
-
-game.Players.PlayerAdded:Connect(function(player)
-    while true do
-        task.wait()
-        dealDamage.smoke(player)
-    end
-end)]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">20d930e85d5da59d023ecfeb003e54cc</UniqueId>
-				</Properties>
-			</Item>
 			<Item class="ModuleScript" referent="RBX11667627DB3647378328644EB40B6B03">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1003,16 +921,19 @@ local inSmokeZone = {}
 local container = workspace.zones.smokeZone
 local zone = zonePlus.new(container)
 
-zone.playerEntered:Connect(function(player)
+local function onPlayerEntered(player)
     table.insert(inSmokeZone, player)
     game.TestService:Message(("%s entered the zone!"):format(player.Name))
-end)
+end
 
-zone.playerExited:Connect(function(player)
+local function onPlayerExited(player)
     local playerIndex = table.find(inSmokeZone, player)
     table.remove(inSmokeZone, playerIndex)
     game.TestService:Message(("%s exited the zone!"):format(player.Name))
-end)
+end
+
+zone.playerEntered:Connect(onPlayerEntered)
+zone.playerExited:Connect(onPlayerExited)
 
 return inSmokeZone
 ]]></ProtectedString>
@@ -1021,58 +942,118 @@ return inSmokeZone
 					<UniqueId name="UniqueId">20d930e85d5da59d023ecfeb00428bd7</UniqueId>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXE71CD51E8C444A429E38E28AF88A9A2A">
+			<Item class="ModuleScript" referent="RBXCB1C72DEB6A24323AFD04093FA99A9BB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">takeHealthHandler</string>
-					<string name="ScriptGuid">{A78CEDE0-6C88-4E50-8D40-DAC5B0ADA5C3}</string>
-					<ProtectedString name="Source"><![CDATA[local takeHealth = {}
+					<string name="Name">KLDealer</string>
+					<string name="ScriptGuid">{8F9DDFA5-892F-4801-BCAC-C8D41F44386F}</string>
+					<ProtectedString name="Source"><![CDATA[local inSmokeZone = require(game.ServerScriptService.Server.inSmokeZone)
 
-function takeHealth.smoke(player)
-    player.Character.Humanoid.Health -= 25
+local KLDealer = {}
+
+function takeHealth(player, amount)
+    player.Character.Humanoid.Health -= amount
 end
 
-return takeHealth]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">20d930e85d5da59d023ecfeb004b52df</UniqueId>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBX9E2327207FC34ADF835BEA9AE8EB7980">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">dealDamage</string>
-					<string name="ScriptGuid">{16A066BE-7866-4812-9CA7-09C62546F96D}</string>
-					<ProtectedString name="Source"><![CDATA[local inSmokeZone = require(game.ServerScriptService.Server.inSmokeZone)
-local data = require(game.ServerScriptService.Server.data)
-local takeHealth = require(game.ServerScriptService.Server.takeHealthHandler)
+function addHealth(player, amount)
+    player.Character.Humanoid.Health += amount
+end
 
-local dmgTime = 2
+function KLDealer.smoke(player, playerData)
+    local DAMAGE = 25
 
-local dealDamage = {}
-
-function dealDamage.smoke(player)
-    local inventory = data[player]
-    if not inventory then return end
-
-    local characterCanHurt = inventory.canHurt
     local playerInZone = table.find(inSmokeZone, player)
 
-    if playerInZone and characterCanHurt == true then 
-        data[player].canHurt = false
-        takeHealth.smoke(player)
+    local canHurt = playerData.canHurt
+    if playerInZone and canHurt == true then 
+        playerData.canHurt = false
+        takeHealth(player, DAMAGE)
         warn('MESSAGE: smoke zone took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
-        wait(dmgTime)
-        data[player].canHurt = true
+        wait(2)
+        playerData.canHurt = true
     end
 end
 
-return dealDamage]]></ProtectedString>
+return KLDealer]]></ProtectedString>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">20d930e85d5da59d023ecfeb0053b661</UniqueId>
+					<UniqueId name="UniqueId">132287510cb26ed3025e520a000259ac</UniqueId>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBXCD6454232ABC4D0B9071D85912FA5089">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">KLSdk</string>
+					<string name="ScriptGuid">{D14BC5C1-F85E-437A-9BA0-357A7493DFF5}</string>
+					<ProtectedString name="Source"><![CDATA[local KLDealer = require(game.ServerScriptService.Server.KLDealer)
+
+local Sdk = {
+    data = {}
+}
+
+local function takesPotion(player, potion)
+    local data = Sdk.data
+    local potions = data[player].Potions
+    local potionBool = potions[potion].bool
+    local potionValue = potions[potion].value
+
+    local hasPotion = potionBool == true
+    if hasPotion then
+        potions[potion].bool = false
+        player.Character.Humanoid.Health = potionValue
+
+        warn(player.Name .. ' took a '.. potion .. ' potion and has been given more health :)')
+    end
+end
+
+local function onPlayerAdded(player)
+    local data = Sdk.data
+    data[player] = {}
+
+    --/ potions
+    data[player].Potions = {}
+    local potions = data[player].Potions
+    potions['halfHealth'] = {bool = true, value = 50}
+    potions['fullHealth'] = {bool = true, value = 100}
+
+    --/ canHurt
+    data[player].canHurt = true
+
+    warn('data has been added for '..player.Name)
+
+    while true do
+        task.wait()
+        local playerData = data[player]
+        KLDealer.smoke(player, playerData)
+    end
+end
+
+local function onPlayerRemoving(player)
+    local data = Sdk.data
+    data[player] = nil 
+
+    warn('data has been removed for ' ..player.Name)
+end
+
+function Sdk.initialize()
+
+    local potionEvent = Instance.new('RemoteEvent', game.ReplicatedStorage)
+    potionEvent.Name = 'potionEvent'
+
+    --/ Event Bindings
+    potionEvent.OnServerEvent:Connect(takesPotion)
+
+    game.Players.PlayerAdded:Connect(onPlayerAdded)
+    game.Players.PlayerRemoving:Connect(onPlayerRemoving)
+
+end
+
+return Sdk]]></ProtectedString>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">132287510cb26ed3025e520a000fce6c</UniqueId>
 				</Properties>
 			</Item>
 		</Item>
@@ -3739,24 +3720,6 @@ return ZonePlusReference]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Folder" referent="RBX45FA211CA61A45ADA1E763EC70A3879D">
-			<Properties>
-				<BinaryString name="AttributesSerialize"></BinaryString>
-				<string name="Name">remoteEvents</string>
-				<int64 name="SourceAssetId">-1</int64>
-				<BinaryString name="Tags"></BinaryString>
-				<UniqueId name="UniqueId">535409097c55f8d2023eb71800047796</UniqueId>
-			</Properties>
-			<Item class="RemoteEvent" referent="RBXE16761DA857A48C2ACEA3F94E9E3F3CE">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<string name="Name">potionEvent</string>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">535409097c55f8d2023eb718000477a2</UniqueId>
-				</Properties>
-			</Item>
-		</Item>
 	</Item>
 	<Item class="LuaWebService" referent="RBX4FBF85C07EAF43C9BFA8DADA474F902E">
 		<Properties>
@@ -3774,15 +3737,6 @@ return ZonePlusReference]]></ProtectedString>
 			<int64 name="SourceAssetId">-1</int64>
 			<BinaryString name="Tags"></BinaryString>
 			<UniqueId name="UniqueId">440bc071e0b54ab3023da9940001af14</UniqueId>
-		</Properties>
-	</Item>
-	<Item class="LanguageService" referent="RBX5B2238E259214CE9AE19BA6DC9D583D9">
-		<Properties>
-			<BinaryString name="AttributesSerialize"></BinaryString>
-			<string name="Name">LanguageService</string>
-			<int64 name="SourceAssetId">-1</int64>
-			<BinaryString name="Tags"></BinaryString>
-			<UniqueId name="UniqueId">440bc071e0b54ab3023da9940001af18</UniqueId>
 		</Properties>
 	</Item>
 	<Item class="Lighting" referent="RBX4ABDE1E18B0842E993C55AEE846C2840">
@@ -3838,6 +3792,15 @@ return ZonePlusReference]]></ProtectedString>
 			<int64 name="SourceAssetId">-1</int64>
 			<BinaryString name="Tags"></BinaryString>
 			<UniqueId name="UniqueId">440bc071e0b54ab3023da9940001af3d</UniqueId>
+		</Properties>
+	</Item>
+	<Item class="LanguageService" referent="RBX5B2238E259214CE9AE19BA6DC9D583D9">
+		<Properties>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<string name="Name">LanguageService</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<BinaryString name="Tags"></BinaryString>
+			<UniqueId name="UniqueId">440bc071e0b54ab3023da9940001af18</UniqueId>
 		</Properties>
 	</Item>
 	<Item class="HttpService" referent="RBXCC5072535900425A9C870452932466E2">
