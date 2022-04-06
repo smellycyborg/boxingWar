@@ -12,6 +12,7 @@ end
 
 function KLDealer.smoke(player, playerData)
     local DAMAGE = 25
+    local TIME_UNTIL_NEXT_DAMAGE = 2
 
     local playerInZone = table.find(inSmokeZone, player)
 
@@ -20,7 +21,7 @@ function KLDealer.smoke(player, playerData)
         playerData.canHurt = false
         takeHealth(player, DAMAGE)
         warn('MESSAGE: smoke zone took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
-        wait(2)
+        wait(TIME_UNTIL_NEXT_DAMAGE)
         playerData.canHurt = true
     end
 end
