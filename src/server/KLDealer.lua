@@ -2,11 +2,11 @@ local inSmokeZone = require(game.ServerScriptService.Server.inSmokeZone)
 
 local KLDealer = {}
 
-function takeHealth(player, amount)
+local function takeHealth(player, amount)
     player.Character.Humanoid.Health -= amount
 end
 
-function addHealth(player, amount)
+local function addHealth(player, amount)
     player.Character.Humanoid.Health += amount
 end
 
