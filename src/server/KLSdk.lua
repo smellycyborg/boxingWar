@@ -4,6 +4,21 @@ local Sdk = {
     data = {}
 }
 
+local function takesPotion(player, potion)
+    local data = Sdk.data
+    local potions = data[player].Potions
+    local potionBool = potions[potion].bool
+    local potionValue = potions[potion].value
+
+    local hasPotion = potionBool == true
+    if hasPotion then
+        potions[potion].bool = false
+        player.Character.Humanoid.Health = potionValue
+
+        warn(player.Name .. ' took a '.. potion .. ' potion and has been given more health :)')
+    end
+end
+
 local function onPlayerAdded(player)
     local data = Sdk.data
     data[player] = {}
@@ -34,8 +49,16 @@ local function onPlayerRemoving(player)
 end
 
 function Sdk.initialize()
+
+    local potionEvent = Instance.new('RemoteEvent', game.ReplicatedStorage)
+    potionEvent.Name = 'potionEvent'
+
+    --/ Event Bindings
+    potionEvent.OnServerEvent:Connect(takesPotion)
+
     game.Players.PlayerAdded:Connect(onPlayerAdded)
     game.Players.PlayerRemoving:Connect(onPlayerRemoving)
+
 end
 
 return Sdk
