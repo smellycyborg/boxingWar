@@ -916,6 +916,8 @@ Sdk.initialize()]]></ProtectedString>
 					<string name="ScriptGuid">{9ED35E0C-62A8-4100-A5AC-BD8FDD75E989}</string>
 					<ProtectedString name="Source"><![CDATA[local zonePlus = require(game.ReplicatedStorage.Zone)
 
+-- TODO: rename to inZone so that there can be other types of damage zones or healing zones etc.
+
 local inSmokeZone = {}
 
 local container = workspace.zones.smokeZone
@@ -952,16 +954,17 @@ return inSmokeZone
 
 local KLDealer = {}
 
-function takeHealth(player, amount)
+local function takeHealth(player, amount)
     player.Character.Humanoid.Health -= amount
 end
 
-function addHealth(player, amount)
+local function addHealth(player, amount)
     player.Character.Humanoid.Health += amount
 end
 
 function KLDealer.smoke(player, playerData)
     local DAMAGE = 25
+    local TIME_UNTIL_NEXT_DAMAGE = 2
 
     local playerInZone = table.find(inSmokeZone, player)
 
@@ -970,7 +973,7 @@ function KLDealer.smoke(player, playerData)
         playerData.canHurt = false
         takeHealth(player, DAMAGE)
         warn('MESSAGE: smoke zone took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
-        wait(2)
+        wait(TIME_UNTIL_NEXT_DAMAGE)
         playerData.canHurt = true
     end
 end
@@ -1054,6 +1057,84 @@ return Sdk]]></ProtectedString>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 					<UniqueId name="UniqueId">132287510cb26ed3025e520a000fce6c</UniqueId>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX85981CF426B7411B8A443AA6A379C405">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">Timer</string>
+					<string name="ScriptGuid">{CC580614-DD67-46A0-A816-A27969A68BB7}</string>
+					<ProtectedString name="Source"><![CDATA[local Timer = {}
+Timer.__index = Timer
+
+function Timer.new()
+	local self = setmetatable({}, Timer)
+
+	self._finishedEvent = Instance.new("BindableEvent")
+	self.finished = self._finishedEvent.Event
+
+	self._tickEvent = Instance.new("BindableEvent")
+	self.tick = self._tickEvent.Event
+
+	self._running = false
+	self._startTime = nil
+	self._duration = nil
+
+	return self
+end
+
+function Timer:start(duration)
+	if not self._running then
+		local timerThread = coroutine.wrap(function()
+			self._running = true
+			self._duration = duration
+			self._startTime = tick()
+			self._previousTick = 0
+			while self._running and tick() - self._startTime < duration do
+				wait()
+				if math.floor(tick() - self._startTime) > self._previousTick then
+					self._previousTick = math.floor(tick() - self._startTime)
+					self._tickEvent:Fire(self._previousTick)
+				end
+			end
+			local completed = self._running
+			self._running = false
+			self._startTime = nil
+			self._duration = nil
+			self._finishedEvent:Fire(completed)
+		end)
+		timerThread()
+	else
+		warn("Warning: timer could not start again as it is already running.")
+	end
+end
+
+function Timer:getTimeLeft()
+	if self._running then
+		local now = tick()
+		local timeLeft = self._startTime + self._duration - now
+		if timeLeft < 0 then
+			timeLeft = 0
+		end
+		return timeLeft
+	else
+		warn("Warning: could not get remaining time, timer is not running.")
+	end
+end
+
+function Timer:isRunning()
+	return self._running
+end
+
+function Timer:stop()
+	self._running = false
+end
+
+return Timer]]></ProtectedString>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">0797fad6744dbc00026a493c0002551c</UniqueId>
 				</Properties>
 			</Item>
 		</Item>
