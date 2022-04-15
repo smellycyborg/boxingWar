@@ -13,7 +13,7 @@ local function takesPotion(player, potion)
     local hasPotion = potionBool == true
     if hasPotion then
         potions[potion].bool = false
-        player.Character.Humanoid.Health = potionValue
+        KLDealer.addHealth(player, potionValue)
 
         warn(player.Name .. ' took a '.. potion .. ' potion and has been given more health :)')
     end
@@ -32,12 +32,35 @@ local function onPlayerAdded(player)
     --/ canHurt
     data[player].canHurt = true
 
+    --/ level
+    local level = data[player].Level
+    level = 1
+    local xp = data[player].Xp
+    xp = 0
+
+    -- Todo add formula for xp and level so that you need more xp to reach next level
+    local function levelAndXpHandler()
+        local canAddXp = true
+        if canAddXp == true then
+            xp+=1
+            canAddXp = false
+            wait(1)
+            canAddXp = true
+        end
+
+        if xp == 10 then
+            xp = 0
+            level +=1
+        end
+    end
+
     warn('data has been added for '..player.Name)
 
     while true do
         task.wait()
         local playerData = data[player]
         KLDealer.smoke(player, playerData)
+        levelAndXpHandler()
     end
 end
 
@@ -50,7 +73,8 @@ end
 
 function Sdk.initialize()
 
-    local potionEvent = Instance.new('RemoteEvent', game.ReplicatedStorage)
+    local potionEvent = Instance.new('RemoteEvent')
+    potionEvent.Parent = game.ReplicatedStorage
     potionEvent.Name = 'potionEvent'
 
     --/ Event Bindings
