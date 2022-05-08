@@ -112,7 +112,7 @@ local function cloneMaterials(material)
     for i = 1, math.random(4, 7) do
         local materialClone = material:Clone()
         materialClone.Parent = workspace
-        materialClone.Position = positions.positionfy(materialClone)
+        materialClone.Position = KLPositions.positionfy(materialClone)
         materialClone:SetAttribute('String', 'Sticks')
     end
 end
