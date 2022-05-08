@@ -80,27 +80,27 @@
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<CoordinateFrame name="CFrame">
-					<X>23.8219719</X>
-					<Y>18.2896671</Y>
-					<Z>12.680316</Z>
-					<R00>0.413119137</R00>
-					<R01>-0.707381964</R01>
-					<R02>0.573535919</R02>
-					<R10>-0</R10>
-					<R11>0.629790783</R11>
-					<R12>0.77676487</R12>
-					<R20>-0.910677075</R20>
-					<R21>-0.320896447</R21>
-					<R22>0.260178566</R22>
+					<X>33.6315384</X>
+					<Y>41.6463356</Y>
+					<Z>7.14820957</Z>
+					<R00>0.413117886</R00>
+					<R01>-0.707381546</R01>
+					<R02>0.57353735</R02>
+					<R10>-1.49011612e-08</R10>
+					<R11>0.629791915</R11>
+					<R12>0.776763976</R12>
+					<R20>-0.910677612</R20>
+					<R21>-0.320895106</R21>
+					<R22>0.260178268</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
 				<token name="CameraType">0</token>
 				<float name="FieldOfView">70</float>
 				<token name="FieldOfViewMode">0</token>
 				<CoordinateFrame name="Focus">
-					<X>22.6749001</X>
-					<Y>16.7361374</Y>
-					<Z>12.1599588</Z>
+					<X>32.4844666</X>
+					<Y>40.0928116</Y>
+					<Z>6.62785435</Z>
 					<R00>1</R00>
 					<R01>0</R01>
 					<R02>0</R02>
@@ -954,11 +954,11 @@ return inSmokeZone
 
 local KLDealer = {}
 
-local function takeHealth(player, amount)
+function KLDealer.takeHealth(player, amount)
     player.Character.Humanoid.Health -= amount
 end
 
-local function addHealth(player, amount)
+function KLDealer.addHealth(player, amount)
     player.Character.Humanoid.Health += amount
 end
 
@@ -971,7 +971,7 @@ function KLDealer.smoke(player, playerData)
     local canHurt = playerData.canHurt
     if playerInZone and canHurt == true then 
         playerData.canHurt = false
-        takeHealth(player, DAMAGE)
+        KLDealer.takeHealth(player, DAMAGE)
         warn('MESSAGE: smoke zone took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
         wait(TIME_UNTIL_NEXT_DAMAGE)
         playerData.canHurt = true
@@ -990,11 +990,37 @@ return KLDealer]]></ProtectedString>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">KLSdk</string>
 					<string name="ScriptGuid">{D14BC5C1-F85E-437A-9BA0-357A7493DFF5}</string>
-					<ProtectedString name="Source"><![CDATA[local KLDealer = require(game.ServerScriptService.Server.KLDealer)
+					<ProtectedString name="Source"><![CDATA[local KLDealer = require(script.Parent.KLDealer)
+local positions = require(script.Parent.positions)
+local ReplicatedStorage = game.ReplicatedStorage
 
 local Sdk = {
     data = {}
 }
+
+local function onCharacherTouched(part, player)
+    local attribute = part:GetAttribute('String')
+    if not attribute then return end
+
+    local data = Sdk.data
+    data[player].Materials[attribute]+=1
+    part:Destroy()
+    print('MESSAGE/Info: ' .. player.Name .. ' has picked up a ' .. attribute .. ' and their ' .. attribute .. ' are now ' .. data[player].Materials[attribute] .. '.')
+end
+
+local function onCharacterAdded(character)
+    local player = game.Players:GetPlayerFromCharacter(character)
+    local characterChildren = character:GetChildren()
+
+    for _, v in pairs(characterChildren) do
+        local isPart = v:IsA('Part')
+        if isPart then
+            v.Touched:Connect(function(part)
+                onCharacherTouched(part, player)
+            end)
+        end
+    end
+end
 
 local function takesPotion(player, potion)
     local data = Sdk.data
@@ -1004,32 +1030,62 @@ local function takesPotion(player, potion)
 
     local hasPotion = potionBool == true
     if hasPotion then
-        potions[potion].bool = false
-        player.Character.Humanoid.Health = potionValue
+        data[player].Potions[potion].bool = false
+        KLDealer.addHealth(player, potionValue)
 
-        warn(player.Name .. ' took a '.. potion .. ' potion and has been given more health :)')
+        print('MESSAGE/Info: ' .. player.Name .. ' took a '.. potion .. ' potion and has been given more health.  :)')
     end
 end
 
 local function onPlayerAdded(player)
+
     local data = Sdk.data
     data[player] = {}
 
+    --/ materials
+    data[player].Materials = {}
+    local materials = data[player].Materials
+    data[player].Materials['Sticks'] = 0
+
     --/ potions
     data[player].Potions = {}
-    local potions = data[player].Potions
-    potions['halfHealth'] = {bool = true, value = 50}
-    potions['fullHealth'] = {bool = true, value = 100}
+    data[player].Potions['halfHealth'] = {bool = true, value = 50}
+    data[player].Potions['fullHealth'] = {bool = true, value = 100}
 
     --/ canHurt
     data[player].canHurt = true
 
-    warn('data has been added for '..player.Name)
+    --/ level
+    local level = data[player].Level
+    level = 1
+    local xp = data[player].Xp
+    xp = 0
+
+    -- Todo add formula for xp and level so that you need more xp to reach next level
+    local function levelAndXpHandler()
+        local canAddXp = true
+        if canAddXp == true then
+            xp+=1
+            canAddXp = false
+            wait(1)
+            canAddXp = true
+        end
+
+        if xp == 10 then
+            xp = 0
+            level +=1
+        end
+    end
+
+    warn('MESSAGE/Info: Data has been added for ' .. player.Name .. '.')
+
+    player.CharacterAdded:Connect(onCharacterAdded)
 
     while true do
         task.wait()
         local playerData = data[player]
         KLDealer.smoke(player, playerData)
+        levelAndXpHandler()
     end
 end
 
@@ -1037,12 +1093,26 @@ local function onPlayerRemoving(player)
     local data = Sdk.data
     data[player] = nil 
 
-    warn('data has been removed for ' ..player.Name)
+    warn('MESSAGE/Info:  Data has been removed for ' .. player.Name .. '.')
+end
+
+local function createMaterials()
+    local Materials = ReplicatedStorage:WaitForChild('Materials')
+    local stick = Materials.Stick
+    
+    for i = 1, math.random(4, 7) do
+        local stickClone = stick:Clone()
+        stickClone.Parent = workspace
+        stickClone.Position = positions.positionfy(stickClone)
+        stickClone:SetAttribute('String', 'Sticks')
+    end
 end
 
 function Sdk.initialize()
+    createMaterials()
 
-    local potionEvent = Instance.new('RemoteEvent', game.ReplicatedStorage)
+    --/ Events
+    local potionEvent = Instance.new('RemoteEvent', ReplicatedStorage)
     potionEvent.Name = 'potionEvent'
 
     --/ Event Bindings
@@ -1050,7 +1120,6 @@ function Sdk.initialize()
 
     game.Players.PlayerAdded:Connect(onPlayerAdded)
     game.Players.PlayerRemoving:Connect(onPlayerRemoving)
-
 end
 
 return Sdk]]></ProtectedString>
@@ -1137,6 +1206,68 @@ return Timer]]></ProtectedString>
 					<UniqueId name="UniqueId">0797fad6744dbc00026a493c0002551c</UniqueId>
 				</Properties>
 			</Item>
+			<Item class="ModuleScript" referent="RBXCF9DD26DD8AA457D8BD8749B8E46AF12">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">positions</string>
+					<string name="ScriptGuid">{796F6521-373C-4C4A-9BC2-34C245350130}</string>
+					<ProtectedString name="Source"><![CDATA[local positions = {}
+
+function positions.positionfy(object)
+    local position
+    local xRange = math.random(-0.125, 30)
+    local zRange = math.random(2, 50)
+    local yRange = 5.5
+    position = Vector3.new(xRange, yRange, zRange)
+    if table.find(positions, position) then
+        positions.positionfy(object)
+    else
+        table.insert(positions, position)
+        return position
+    end
+end
+
+return positions]]></ProtectedString>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">279e6850e1e911fd0289a31b0007031e</UniqueId>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Script" referent="RBX0632CF94A39C48518AA8CF5711B03671">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">Script</string>
+				<string name="ScriptGuid">{2DD6654D-ABA1-4E99-81D1-043085D8ED2C}</string>
+				<ProtectedString name="Source"><![CDATA[local positions = {}
+
+function positionfy(object)
+	local position
+	local xRange = math.random(-0.125, 30)
+	local zRange = math.random(2, 50)
+	local yRange = 5.5
+	position = Vector3.new(xRange, yRange, zRange)
+	if table.find(positions, position) then
+		warn('calling positionfy cuz got same position')
+		positionfy(object)
+	else
+		table.insert(positions, position)
+		return position
+	end
+end
+
+for i = 1, 100 do
+	positionfy()
+end
+
+print(positions)]]></ProtectedString>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+				<UniqueId name="UniqueId">279e6850e1e911fd0289a31b0002923a</UniqueId>
+			</Properties>
 		</Item>
 	</Item>
 	<Item class="ServerStorage" referent="RBX50D931C46ED54BEF8F69148D2DB13947">
@@ -3798,6 +3929,110 @@ return ZonePlusReference]]></ProtectedString>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 					<UniqueId name="UniqueId">4f5bea1deb0b79f0023db021000c833c</UniqueId>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Folder" referent="RBX3AF1F5C8F5914CD89F4D109D4C4F5B9A">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<string name="Name">Materials</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+				<UniqueId name="UniqueId">279e6850e1e911fd0289a31b0007036e</UniqueId>
+			</Properties>
+			<Item class="Part" referent="RBX7A84A6E8269A48F79B723809E2C6D144">
+				<Properties>
+					<bool name="Anchored">false</bool>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-21</X>
+						<Y>0.5</Y>
+						<Z>44</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">true</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4285087784</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">false</bool>
+					<token name="Material">512</token>
+					<string name="MaterialVariantSerialized"></string>
+					<string name="Name">Stick</string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<UniqueId name="UniqueId">279e6850e1e911fd0289a31b0006fff1</UniqueId>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<token name="formFactorRaw">1</token>
+					<token name="shape">1</token>
+					<Vector3 name="size">
+						<X>4</X>
+						<Y>1</Y>
+						<Z>2</Z>
+					</Vector3>
 				</Properties>
 			</Item>
 		</Item>
