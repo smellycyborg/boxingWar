@@ -19,7 +19,9 @@ local function onCharacterAdded(character)
     for _, v in pairs(characterChildren) do
         local isPart = v:IsA('Part')
         if isPart then
-            v.Touched:Connect(onCharacherTouched)
+            v.Touched:Connect(function(part)
+                onCharacherTouched(part, player)
+            end)
         end
     end
 end
