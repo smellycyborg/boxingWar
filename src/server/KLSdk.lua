@@ -97,7 +97,6 @@ local function onPlayerRemoving(player)
 end
 
 function Sdk.initialize()
-
     local potionEvent = Instance.new('RemoteEvent')
     potionEvent.Parent = game.ReplicatedStorage
     potionEvent.Name = 'potionEvent'
@@ -107,7 +106,6 @@ function Sdk.initialize()
 
     game.Players.PlayerAdded:Connect(onPlayerAdded)
     game.Players.PlayerRemoving:Connect(onPlayerRemoving)
-
 end
 
 return Sdk
