@@ -41,7 +41,7 @@ local function takesPotion(player, potion)
         data[player].Potions[potion].bool = false
         KLDealer.addHealth(player, potionValue)
 
-        warn(player.Name .. ' took a '.. potion .. ' potion and has been given more health :)')
+        print('MESSAGE/Info: ' .. player.Name .. ' took a '.. potion .. ' potion and has been given more health.  :)')
     end
 end
 
