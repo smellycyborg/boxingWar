@@ -1,5 +1,6 @@
 local KLDealer = require(script.Parent.KLDealer)
-local positions = require(script.Parent.positions)
+local KLPositions = require(script.Parent.KLPositions)
+local KLMaterials = require(script.Parent.KLMaterials)
 local ReplicatedStorage = game.ReplicatedStorage
 
 local Sdk = {
@@ -104,20 +105,26 @@ local function onPlayerRemoving(player)
     warn('MESSAGE/Info:  Data has been removed for ' .. player.Name .. '.')
 end
 
-local function createMaterials()
+local function cloneMaterials(material)
     local Materials = ReplicatedStorage:WaitForChild('Materials')
-    local stick = Materials.Stick
-    
+    local material = Materials[material]
+
     for i = 1, math.random(4, 7) do
-        local stickClone = stick:Clone()
-        stickClone.Parent = workspace
-        stickClone.Position = positions.positionfy(stickClone)
-        stickClone:SetAttribute('String', 'Sticks')
+        local materialClone = material:Clone()
+        materialClone.Parent = workspace
+        materialClone.Position = positions.positionfy(materialClone)
+        materialClone:SetAttribute('String', 'Sticks')
+    end
+end
+
+local function createMaterials(materials)
+    for _, material in pairs(materials) do
+        cloneMaterials(material)
     end
 end
 
 function Sdk.initialize()
-    createMaterials()
+    createMaterials(KLMaterials)
 
     --/ Events
     local potionEvent = Instance.new('RemoteEvent', ReplicatedStorage)
