@@ -4,6 +4,26 @@ local Sdk = {
     data = {}
 }
 
+local function onCharacherTouched(part, player)
+    local attribute = part:GetAttribute('String')
+    if not attribute then return end
+
+    local data = Sdk.data
+    data[player][attribute]+=1
+end
+
+local function onCharacterAdded(character)
+    local player = game.Players:GetPlayerFromCharacter(character)
+    local characterChildren = character:GetChildren()
+
+    for _, v in pairs(characterChildren) do
+        local isPart = v:IsA('Part')
+        if isPart then
+            v.Touched:Connect(onCharacherTouched)
+        end
+    end
+end
+
 local function takesPotion(player, potion)
     local data = Sdk.data
     local potions = data[player].Potions
