@@ -42,6 +42,7 @@ local function takesPotion(player, potion)
 end
 
 local function onPlayerAdded(player)
+
     local data = Sdk.data
     data[player] = {}
 
@@ -76,7 +77,9 @@ local function onPlayerAdded(player)
         end
     end
 
-    warn('data has been added for '..player.Name)
+    warn('MESSAGE/Info: Data has been added for ' .. player.Name .. '.')
+
+    player.CharacterAdded:Connect(onCharacterAdded)
 
     while true do
         task.wait()
@@ -90,7 +93,7 @@ local function onPlayerRemoving(player)
     local data = Sdk.data
     data[player] = nil 
 
-    warn('data has been removed for ' ..player.Name)
+    warn('MESSAGE/Info:  Data has been removed for ' .. player.Name .. '.')
 end
 
 function Sdk.initialize()
