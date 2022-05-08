@@ -2,11 +2,11 @@ local inSmokeZone = require(game.ServerScriptService.Server.inSmokeZone)
 
 local KLDealer = {}
 
-local function takeHealth(player, amount)
+function KLDealer.takeHealth(player, amount)
     player.Character.Humanoid.Health -= amount
 end
 
-local function addHealth(player, amount)
+function KLDealer.addHealth(player, amount)
     player.Character.Humanoid.Health += amount
 end
 
@@ -19,7 +19,7 @@ function KLDealer.smoke(player, playerData)
     local canHurt = playerData.canHurt
     if playerInZone and canHurt == true then 
         playerData.canHurt = false
-        takeHealth(player, DAMAGE)
+        KLDealer.takeHealth(player, DAMAGE)
         warn('MESSAGE: smoke zone took 25 health from '.. player.Name .. '.' .. '  2 seconds until next hurt!')
         wait(TIME_UNTIL_NEXT_DAMAGE)
         playerData.canHurt = true

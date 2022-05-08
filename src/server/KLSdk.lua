@@ -38,7 +38,7 @@ local function takesPotion(player, potion)
 
     local hasPotion = potionBool == true
     if hasPotion then
-        potions[potion].bool = false
+        data[player].Potions[potion].bool = false
         KLDealer.addHealth(player, potionValue)
 
         warn(player.Name .. ' took a '.. potion .. ' potion and has been given more health :)')
