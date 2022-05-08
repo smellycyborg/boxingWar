@@ -1,4 +1,6 @@
-local KLDealer = require(game.ServerScriptService.Server.KLDealer)
+local KLDealer = require(script.Parent.KLDealer)
+local positions = require(script.Parent.positions)
+local ReplicatedStorage = game.ReplicatedStorage
 
 local Sdk = {
     data = {}
@@ -9,7 +11,9 @@ local function onCharacherTouched(part, player)
     if not attribute then return end
 
     local data = Sdk.data
-    data[player][attribute]+=1
+    data[player].Materials[attribute]+=1
+    part:Destroy()
+    print('MESSAGE/Info: ' .. player.Name .. ' has picked up a ' .. attribute .. ' and their ' .. attribute .. ' are now ' .. data[player].Materials[attribute] .. '.')
 end
 
 local function onCharacterAdded(character)
@@ -46,11 +50,15 @@ local function onPlayerAdded(player)
     local data = Sdk.data
     data[player] = {}
 
+    --/ materials
+    data[player].Materials = {}
+    local materials = data[player].Materials
+    data[player].Materials['Sticks'] = 0
+
     --/ potions
     data[player].Potions = {}
-    local potions = data[player].Potions
-    potions['halfHealth'] = {bool = true, value = 50}
-    potions['fullHealth'] = {bool = true, value = 100}
+    data[player].Potions['halfHealth'] = {bool = true, value = 50}
+    data[player].Potions['fullHealth'] = {bool = true, value = 100}
 
     --/ canHurt
     data[player].canHurt = true
@@ -96,9 +104,23 @@ local function onPlayerRemoving(player)
     warn('MESSAGE/Info:  Data has been removed for ' .. player.Name .. '.')
 end
 
+local function createMaterials()
+    local Materials = ReplicatedStorage:WaitForChild('Materials')
+    local stick = Materials.Stick
+    
+    for i = 1, math.random(4, 7) do
+        local stickClone = stick:Clone()
+        stickClone.Parent = workspace
+        stickClone.Position = positions.positionfy(stickClone)
+        stickClone:SetAttribute('String', 'Sticks')
+    end
+end
+
 function Sdk.initialize()
-    local potionEvent = Instance.new('RemoteEvent')
-    potionEvent.Parent = game.ReplicatedStorage
+    createMaterials()
+
+    --/ Events
+    local potionEvent = Instance.new('RemoteEvent', ReplicatedStorage)
     potionEvent.Name = 'potionEvent'
 
     --/ Event Bindings
