@@ -80,27 +80,27 @@
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<CoordinateFrame name="CFrame">
-					<X>33.6315384</X>
-					<Y>41.6463356</Y>
-					<Z>7.14820957</Z>
-					<R00>0.413117886</R00>
-					<R01>-0.707381546</R01>
+					<X>13.3956451</X>
+					<Y>19.628231</Y>
+					<Z>4.75830221</Z>
+					<R00>0.413117558</R00>
+					<R01>-0.707381666</R01>
 					<R02>0.57353735</R02>
 					<R10>-1.49011612e-08</R10>
-					<R11>0.629791915</R11>
+					<R11>0.629791796</R11>
 					<R12>0.776763976</R12>
-					<R20>-0.910677612</R20>
-					<R21>-0.320895106</R21>
-					<R22>0.260178268</R22>
+					<R20>-0.910677731</R20>
+					<R21>-0.320894837</R21>
+					<R22>0.26017803</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
 				<token name="CameraType">0</token>
 				<float name="FieldOfView">70</float>
 				<token name="FieldOfViewMode">0</token>
 				<CoordinateFrame name="Focus">
-					<X>32.4844666</X>
-					<Y>40.0928116</Y>
-					<Z>6.62785435</Z>
+					<X>12.2485733</X>
+					<Y>18.074707</Y>
+					<Z>4.23794746</Z>
 					<R00>1</R00>
 					<R01>0</R01>
 					<R02>0</R02>
@@ -991,7 +991,8 @@ return KLDealer]]></ProtectedString>
 					<string name="Name">KLSdk</string>
 					<string name="ScriptGuid">{D14BC5C1-F85E-437A-9BA0-357A7493DFF5}</string>
 					<ProtectedString name="Source"><![CDATA[local KLDealer = require(script.Parent.KLDealer)
-local positions = require(script.Parent.positions)
+local KLPositions = require(script.Parent.KLPositions)
+local KLMaterials = require(script.Parent.KLMaterials)
 local ReplicatedStorage = game.ReplicatedStorage
 
 local Sdk = {
@@ -1045,7 +1046,9 @@ local function onPlayerAdded(player)
     --/ materials
     data[player].Materials = {}
     local materials = data[player].Materials
-    data[player].Materials['Sticks'] = 0
+    for _, material in pairs(KLMaterials) do
+        data[player].Materials[material] = 0
+    end
 
     --/ potions
     data[player].Potions = {}
@@ -1096,20 +1099,26 @@ local function onPlayerRemoving(player)
     warn('MESSAGE/Info:  Data has been removed for ' .. player.Name .. '.')
 end
 
-local function createMaterials()
+local function cloneMaterials(material)
     local Materials = ReplicatedStorage:WaitForChild('Materials')
-    local stick = Materials.Stick
-    
+    local material = Materials[material]
+
     for i = 1, math.random(4, 7) do
-        local stickClone = stick:Clone()
-        stickClone.Parent = workspace
-        stickClone.Position = positions.positionfy(stickClone)
-        stickClone:SetAttribute('String', 'Sticks')
+        local materialClone = material:Clone()
+        materialClone.Parent = workspace
+        materialClone.Position = KLPositions.positionfy(materialClone)
+        materialClone:SetAttribute('String', tostring(material))
+    end
+end
+
+local function createMaterials(materials)
+    for _, material in pairs(materials) do
+        cloneMaterials(material)
     end
 end
 
 function Sdk.initialize()
-    createMaterials()
+    createMaterials(KLMaterials)
 
     --/ Events
     local potionEvent = Instance.new('RemoteEvent', ReplicatedStorage)
@@ -1206,12 +1215,28 @@ return Timer]]></ProtectedString>
 					<UniqueId name="UniqueId">0797fad6744dbc00026a493c0002551c</UniqueId>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXCF9DD26DD8AA457D8BD8749B8E46AF12">
+			<Item class="ModuleScript" referent="RBX37AB1B0FA7E744818FB746682D3FEAB1">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">positions</string>
-					<string name="ScriptGuid">{796F6521-373C-4C4A-9BC2-34C245350130}</string>
+					<string name="Name">KLMaterials</string>
+					<string name="ScriptGuid">{CE4785B7-3C01-4E73-A111-110BE2DEF9CA}</string>
+					<ProtectedString name="Source"><![CDATA[local materials = {
+    'Sticks', 'Stone',
+}
+
+return materials]]></ProtectedString>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">279e6850e1e911fd0289a31b0030d8c8</UniqueId>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX6CB8E79337B64301AAA90C241B9073A3">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">KLPositions</string>
+					<string name="ScriptGuid">{93734DB6-9CBA-434A-A57D-1FD545D3702A}</string>
 					<ProtectedString name="Source"><![CDATA[local positions = {}
 
 function positions.positionfy(object)
@@ -1231,43 +1256,9 @@ end
 return positions]]></ProtectedString>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">279e6850e1e911fd0289a31b0007031e</UniqueId>
+					<UniqueId name="UniqueId">279e6850e1e911fd0289a31b003538e2</UniqueId>
 				</Properties>
 			</Item>
-		</Item>
-		<Item class="Script" referent="RBX0632CF94A39C48518AA8CF5711B03671">
-			<Properties>
-				<BinaryString name="AttributesSerialize"></BinaryString>
-				<bool name="Disabled">false</bool>
-				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">Script</string>
-				<string name="ScriptGuid">{2DD6654D-ABA1-4E99-81D1-043085D8ED2C}</string>
-				<ProtectedString name="Source"><![CDATA[local positions = {}
-
-function positionfy(object)
-	local position
-	local xRange = math.random(-0.125, 30)
-	local zRange = math.random(2, 50)
-	local yRange = 5.5
-	position = Vector3.new(xRange, yRange, zRange)
-	if table.find(positions, position) then
-		warn('calling positionfy cuz got same position')
-		positionfy(object)
-	else
-		table.insert(positions, position)
-		return position
-	end
-end
-
-for i = 1, 100 do
-	positionfy()
-end
-
-print(positions)]]></ProtectedString>
-				<int64 name="SourceAssetId">-1</int64>
-				<BinaryString name="Tags"></BinaryString>
-				<UniqueId name="UniqueId">279e6850e1e911fd0289a31b0002923a</UniqueId>
-			</Properties>
 		</Item>
 	</Item>
 	<Item class="ServerStorage" referent="RBX50D931C46ED54BEF8F69148D2DB13947">
@@ -3987,7 +3978,7 @@ return ZonePlusReference]]></ProtectedString>
 					<bool name="Massless">false</bool>
 					<token name="Material">512</token>
 					<string name="MaterialVariantSerialized"></string>
-					<string name="Name">Stick</string>
+					<string name="Name">Sticks</string>
 					<CoordinateFrame name="PivotOffset">
 						<X>0</X>
 						<Y>0</Y>
@@ -4021,6 +4012,101 @@ return ZonePlusReference]]></ProtectedString>
 					<token name="TopSurfaceInput">0</token>
 					<float name="Transparency">0</float>
 					<UniqueId name="UniqueId">279e6850e1e911fd0289a31b0006fff1</UniqueId>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<token name="formFactorRaw">1</token>
+					<token name="shape">1</token>
+					<Vector3 name="size">
+						<X>4</X>
+						<Y>1</Y>
+						<Z>2</Z>
+					</Vector3>
+				</Properties>
+			</Item>
+			<Item class="Part" referent="RBX9476884EAA2A483FA00A9CEF8736224F">
+				<Properties>
+					<bool name="Anchored">false</bool>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>11</X>
+						<Y>0.5</Y>
+						<Z>-16</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">true</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">false</bool>
+					<token name="Material">864</token>
+					<string name="MaterialVariantSerialized"></string>
+					<string name="Name">Stone</string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<UniqueId name="UniqueId">279e6850e1e911fd0289a31b0035391f</UniqueId>
 					<Vector3 name="Velocity">
 						<X>0</X>
 						<Y>0</Y>
