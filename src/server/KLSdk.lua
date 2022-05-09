@@ -54,7 +54,9 @@ local function onPlayerAdded(player)
     --/ materials
     data[player].Materials = {}
     local materials = data[player].Materials
-    data[player].Materials['Sticks'] = 0
+    for _, material in pairs(KLMaterials) do
+        data[player].Materials[material] = 0
+    end
 
     --/ potions
     data[player].Potions = {}
@@ -113,7 +115,7 @@ local function cloneMaterials(material)
         local materialClone = material:Clone()
         materialClone.Parent = workspace
         materialClone.Position = KLPositions.positionfy(materialClone)
-        materialClone:SetAttribute('String', 'Sticks')
+        materialClone:SetAttribute('String', tostring(material))
     end
 end
 

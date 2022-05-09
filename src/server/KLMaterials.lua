@@ -1,5 +1,5 @@
 local materials = {
-    'Sticks'
+    'Sticks', 'Stone',
 }
 
 return materials
