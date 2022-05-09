@@ -53,7 +53,6 @@ local function onPlayerAdded(player)
 
     --/ materials
     data[player].Materials = {}
-    local materials = data[player].Materials
     for _, material in pairs(KLMaterials) do
         data[player].Materials[material] = 0
     end
