@@ -1,4 +1,4 @@
-local potionEvent = game.ReplicatedStorage.potionEvent
+local potionEvent = game.ReplicatedStorage.KLEvents.PotionEvent
 
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse('Mouse')

@@ -128,8 +128,12 @@ function Sdk.initialize()
     createMaterials(KLMaterials)
 
     --/ Events
-    local potionEvent = Instance.new('RemoteEvent', ReplicatedStorage)
-    potionEvent.Name = 'potionEvent'
+    local KLEvents = Instance.new('Folder', ReplicatedStorage)
+    KLEvents.Name = 'KLEvents'
+    local potionEvent = Instance.new('RemoteEvent', KLEvents)
+    potionEvent.Name = 'PotionEvent'
+    local craftEvent = Instance.new('RemoteEvent', KLEvents)
+    craftEvent.Name = 'CraftEvent'
 
     --/ Event Bindings
     potionEvent.OnServerEvent:Connect(takesPotion)
