@@ -1,6 +1,6 @@
 local KLDealer = require(script.Parent.KLDealer)
 local KLPositions = require(script.Parent.KLPositions)
-local KLMaterials = require(script.Parent.KLMaterials)
+local KLItems = require(script.Parent.KLItems)
 local ReplicatedStorage = game.ReplicatedStorage
 
 local Sdk = {
@@ -53,8 +53,14 @@ local function onPlayerAdded(player)
 
     --/ materials
     data[player].Materials = {}
-    for _, material in pairs(KLMaterials) do
+    for _, material in pairs(KLItems.Materials) do
         data[player].Materials[material] = 0
+    end
+
+    --/ materials
+    data[player].Weapons = {}
+    for _, weapon in pairs(KLItems.Weapons) do
+        data[player].Materials[weapon] = 0
     end
 
     --/ potions
@@ -122,6 +128,10 @@ local function createMaterials(materials)
     for _, material in pairs(materials) do
         cloneMaterials(material)
     end
+end
+
+local function handleCraftEvent(toCraft)
+
 end
 
 function Sdk.initialize()
