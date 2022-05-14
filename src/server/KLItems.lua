@@ -1,6 +1,16 @@
 local KLItems = {
     Materials = { 'Sticks', 'Stone', },
-    Weapons = { 'StoneAxe', },
+    CraftingItems = {
+        Weapons = { 
+            ['StoneAxe'] = {
+                ['TypeOfItem'] = 'Weapons',
+                ['MaterialsNeeded'] = {
+                    ['Sticks'] = 1,
+                    ['Stone'] = 1,
+                }
+            }, 
+        },
+    },
 }
 
 return KLItems

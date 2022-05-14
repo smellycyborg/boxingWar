@@ -59,7 +59,7 @@ local function onPlayerAdded(player)
 
     --/ weapons
     data[player].Weapons = {}
-    for _, weapon in pairs(KLItems.Weapons) do
+    for weapon, _ in pairs(KLItems.CraftingItems.Weapons) do
         data[player].Weapons[weapon] = 0
     end
 
@@ -130,22 +130,47 @@ local function createMaterials(materials)
     end
 end
 
-local function handleCraft(player, toCraft)
+local function findMaterialsNeededToCraft(object, item)
+	for i, v in pairs(object) do
+		if i ~= item then
+			local rerun = findMaterialsNeededToCraft(v, item)
+			return rerun
+		else
+			return v
+		end
+	end
+end
+
+local function doesPlayerHaveEnoughMaterials(itemData, playerData)
+    local playerHasEnough
+    for material, amount in pairs(itemData.MaterialsNeeded) do
+        if playerData[material] >= amount then
+            playerHasEnough = true
+        else
+            playerHasEnough = false
+            break
+        end
+    end
+    return playerHasEnough
+end
+
+local function handleCraft(player, itemToCraft)
     local data = Sdk.data 
-    local playerHasMaterials = true
+    local CraftingItems = KLItems.CraftingItems
+    local itemToCraftData = findMaterialsNeededToCraft(CraftingItems, itemToCraft)
+    local playerInventory = data[player][itemToCraftData.TypeOfItem]
+    local playerMaterials = data[player].Materials
 
-    local materials = { 'Sticks', 'Stone', }
-
-
-    -- Todo add materials needed and amount need to craft to KLItems module.  which will replace playerHasMaterials
+    local playerHasMaterials = doesPlayerHaveEnoughMaterials(itemToCraftData, playerMaterials)
+    
     if playerHasMaterials then
-        data[player].Weapons[toCraft]+=1
+        playerInventory[itemToCraft]+=1
         
-        for _, material in pairs(materials) do
-            data[player].Materials[material]-=1
+        for material, amount in pairs(itemToCraftData.MaterialsNeeded) do
+            playerMaterials[material]-=amount
         end
 
-        print('MESSAGE/Info:  ' .. player.Name .. ' has crafted a ' .. toCraft .. '.')
+        print('MESSAGE/Info:  ' .. player.Name .. ' has crafted a ' .. itemToCraft .. '.')
     end
 end
 

@@ -80,27 +80,27 @@
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<CoordinateFrame name="CFrame">
-					<X>13.3956451</X>
-					<Y>19.628231</Y>
-					<Z>4.75830221</Z>
-					<R00>0.413117558</R00>
-					<R01>-0.707381666</R01>
+					<X>11.1802292</X>
+					<Y>32.0092964</Y>
+					<Z>12.9315033</Z>
+					<R00>0.413117886</R00>
+					<R01>-0.707381546</R01>
 					<R02>0.57353735</R02>
 					<R10>-1.49011612e-08</R10>
-					<R11>0.629791796</R11>
+					<R11>0.629791915</R11>
 					<R12>0.776763976</R12>
-					<R20>-0.910677731</R20>
-					<R21>-0.320894837</R21>
-					<R22>0.26017803</R22>
+					<R20>-0.910677612</R20>
+					<R21>-0.320895106</R21>
+					<R22>0.260178268</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
 				<token name="CameraType">0</token>
 				<float name="FieldOfView">70</float>
 				<token name="FieldOfViewMode">0</token>
 				<CoordinateFrame name="Focus">
-					<X>12.2485733</X>
-					<Y>18.074707</Y>
-					<Z>4.23794746</Z>
+					<X>10.0331573</X>
+					<Y>30.4557724</Y>
+					<Z>12.4111481</Z>
 					<R00>1</R00>
 					<R01>0</R01>
 					<R02>0</R02>
@@ -621,7 +621,7 @@ gcLgc4RKxr21zq2UlJSM]]></BinaryString>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">takesPotion</string>
 						<string name="ScriptGuid">{4AF60E6E-32EB-482B-AE9E-0C703F6DDF9A}</string>
-						<ProtectedString name="Source"><![CDATA[local potionEvent = game.ReplicatedStorage.potionEvent
+						<ProtectedString name="Source"><![CDATA[local potionEvent = game.ReplicatedStorage.KLEvents.PotionEvent
 
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse('Mouse')
@@ -634,6 +634,28 @@ end)]]></ProtectedString>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
 						<UniqueId name="UniqueId">535409097c55f8d2023eb71800068dba</UniqueId>
+					</Properties>
+				</Item>
+				<Item class="LocalScript" referent="RBXDDBD4058A48145DDB2D08914CC0C66A0">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<bool name="Disabled">false</bool>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">craftHandler</string>
+						<string name="ScriptGuid">{26A1C3A6-4A04-47D4-AC60-5804DB657751}</string>
+						<ProtectedString name="Source"><![CDATA[local PlayerGui = game.Players.LocalPlayer.PlayerGui
+local CraftButton = PlayerGui:WaitForChild('ScreenGui').CraftingFrame.TextButton
+local CraftEvent = game.ReplicatedStorage.KLEvents.CraftEvent
+
+local function onClick()
+    local toCraft = 'StoneAxe'
+    CraftEvent:FireServer(toCraft)
+end
+
+CraftButton.MouseButton1Down:Connect(onClick)]]></ProtectedString>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+						<UniqueId name="UniqueId">3a30e11299ecaa2c029081430004d1b3</UniqueId>
 					</Properties>
 				</Item>
 			</Item>
@@ -725,6 +747,178 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 				<BinaryString name="Tags"></BinaryString>
 				<UniqueId name="UniqueId">0283994fdf8b01730240286c000683f5</UniqueId>
 			</Properties>
+		</Item>
+		<Item class="ScreenGui" referent="RBX5DFE35A82D9846A0BC1FFC5D2C5AA7A3">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<bool name="AutoLocalize">true</bool>
+				<int name="DisplayOrder">0</int>
+				<bool name="Enabled">true</bool>
+				<bool name="IgnoreGuiInset">false</bool>
+				<string name="Name">ScreenGui</string>
+				<bool name="ResetOnSpawn">true</bool>
+				<Ref name="RootLocalizationTable">null</Ref>
+				<token name="SelectionBehaviorDown">0</token>
+				<token name="SelectionBehaviorLeft">0</token>
+				<token name="SelectionBehaviorRight">0</token>
+				<token name="SelectionBehaviorUp">0</token>
+				<bool name="SelectionGroup">false</bool>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+				<UniqueId name="UniqueId">3a30e11299ecaa2c029081430004d024</UniqueId>
+				<token name="ZIndexBehavior">1</token>
+			</Properties>
+			<Item class="Frame" referent="RBXADA260FD65E4460BAE05BFD7E42E37CF">
+				<Properties>
+					<bool name="Active">false</bool>
+					<Vector2 name="AnchorPoint">
+						<X>0.5</X>
+						<Y>0.5</Y>
+					</Vector2>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<bool name="AutoLocalize">true</bool>
+					<token name="AutomaticSize">0</token>
+					<Color3 name="BackgroundColor3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<float name="BackgroundTransparency">0</float>
+					<Color3 name="BorderColor3">
+						<R>0.105882362</R>
+						<G>0.164705887</G>
+						<B>0.207843155</B>
+					</Color3>
+					<token name="BorderMode">0</token>
+					<int name="BorderSizePixel">1</int>
+					<bool name="ClipsDescendants">false</bool>
+					<bool name="Draggable">false</bool>
+					<int name="LayoutOrder">0</int>
+					<string name="Name">CraftingFrame</string>
+					<Ref name="NextSelectionDown">null</Ref>
+					<Ref name="NextSelectionLeft">null</Ref>
+					<Ref name="NextSelectionRight">null</Ref>
+					<Ref name="NextSelectionUp">null</Ref>
+					<UDim2 name="Position">
+						<XS>0.5</XS>
+						<XO>0</XO>
+						<YS>0.5</YS>
+						<YO>0</YO>
+					</UDim2>
+					<Ref name="RootLocalizationTable">null</Ref>
+					<float name="Rotation">0</float>
+					<bool name="Selectable">false</bool>
+					<token name="SelectionBehaviorDown">0</token>
+					<token name="SelectionBehaviorLeft">0</token>
+					<token name="SelectionBehaviorRight">0</token>
+					<token name="SelectionBehaviorUp">0</token>
+					<bool name="SelectionGroup">false</bool>
+					<Ref name="SelectionImageObject">null</Ref>
+					<int name="SelectionOrder">0</int>
+					<UDim2 name="Size">
+						<XS>0.300000012</XS>
+						<XO>0</XO>
+						<YS>0.25</YS>
+						<YO>0</YO>
+					</UDim2>
+					<token name="SizeConstraint">1</token>
+					<int64 name="SourceAssetId">-1</int64>
+					<token name="Style">0</token>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">3a30e11299ecaa2c029081430004d057</UniqueId>
+					<bool name="Visible">true</bool>
+					<int name="ZIndex">1</int>
+				</Properties>
+				<Item class="TextButton" referent="RBXC65F2DC68FE743A5903F08BBD39E3F50">
+					<Properties>
+						<bool name="Active">true</bool>
+						<Vector2 name="AnchorPoint">
+							<X>0.5</X>
+							<Y>0.5</Y>
+						</Vector2>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<bool name="AutoButtonColor">true</bool>
+						<bool name="AutoLocalize">true</bool>
+						<token name="AutomaticSize">0</token>
+						<Color3 name="BackgroundColor3">
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
+						</Color3>
+						<float name="BackgroundTransparency">0</float>
+						<Color3 name="BorderColor3">
+							<R>0.105882362</R>
+							<G>0.164705887</G>
+							<B>0.207843155</B>
+						</Color3>
+						<token name="BorderMode">0</token>
+						<int name="BorderSizePixel">1</int>
+						<bool name="ClipsDescendants">false</bool>
+						<bool name="Draggable">false</bool>
+						<token name="Font">3</token>
+						<Font name="FontFace"></Font>
+						<int name="LayoutOrder">0</int>
+						<float name="LineHeight">1</float>
+						<int name="MaxVisibleGraphemes">-1</int>
+						<bool name="Modal">false</bool>
+						<string name="Name">TextButton</string>
+						<Ref name="NextSelectionDown">null</Ref>
+						<Ref name="NextSelectionLeft">null</Ref>
+						<Ref name="NextSelectionRight">null</Ref>
+						<Ref name="NextSelectionUp">null</Ref>
+						<UDim2 name="Position">
+							<XS>0.5</XS>
+							<XO>0</XO>
+							<YS>0.5</YS>
+							<YO>0</YO>
+						</UDim2>
+						<bool name="RichText">false</bool>
+						<Ref name="RootLocalizationTable">null</Ref>
+						<float name="Rotation">0</float>
+						<bool name="Selectable">true</bool>
+						<bool name="Selected">false</bool>
+						<token name="SelectionBehaviorDown">0</token>
+						<token name="SelectionBehaviorLeft">0</token>
+						<token name="SelectionBehaviorRight">0</token>
+						<token name="SelectionBehaviorUp">0</token>
+						<bool name="SelectionGroup">false</bool>
+						<Ref name="SelectionImageObject">null</Ref>
+						<int name="SelectionOrder">0</int>
+						<UDim2 name="Size">
+							<XS>1</XS>
+							<XO>0</XO>
+							<YS>0.200000003</YS>
+							<YO>0</YO>
+						</UDim2>
+						<token name="SizeConstraint">0</token>
+						<int64 name="SourceAssetId">-1</int64>
+						<token name="Style">0</token>
+						<BinaryString name="Tags"></BinaryString>
+						<string name="Text">craft stone axe</string>
+						<Color3 name="TextColor3">
+							<R>0</R>
+							<G>0</G>
+							<B>0</B>
+						</Color3>
+						<bool name="TextScaled">false</bool>
+						<float name="TextSize">14</float>
+						<Color3 name="TextStrokeColor3">
+							<R>0</R>
+							<G>0</G>
+							<B>0</B>
+						</Color3>
+						<float name="TextStrokeTransparency">1</float>
+						<float name="TextTransparency">0</float>
+						<token name="TextTruncate">0</token>
+						<bool name="TextWrapped">false</bool>
+						<token name="TextXAlignment">2</token>
+						<token name="TextYAlignment">1</token>
+						<UniqueId name="UniqueId">3a30e11299ecaa2c029081430004d084</UniqueId>
+						<bool name="Visible">true</bool>
+						<int name="ZIndex">1</int>
+					</Properties>
+				</Item>
+			</Item>
 		</Item>
 	</Item>
 	<Item class="LocalizationService" referent="RBX424F1C4C240042888E9411D5D11CBB1D">
@@ -992,7 +1186,7 @@ return KLDealer]]></ProtectedString>
 					<string name="ScriptGuid">{D14BC5C1-F85E-437A-9BA0-357A7493DFF5}</string>
 					<ProtectedString name="Source"><![CDATA[local KLDealer = require(script.Parent.KLDealer)
 local KLPositions = require(script.Parent.KLPositions)
-local KLMaterials = require(script.Parent.KLMaterials)
+local KLItems = require(script.Parent.KLItems)
 local ReplicatedStorage = game.ReplicatedStorage
 
 local Sdk = {
@@ -1045,9 +1239,14 @@ local function onPlayerAdded(player)
 
     --/ materials
     data[player].Materials = {}
-    local materials = data[player].Materials
-    for _, material in pairs(KLMaterials) do
+    for _, material in pairs(KLItems.Materials) do
         data[player].Materials[material] = 0
+    end
+
+    --/ weapons
+    data[player].Weapons = {}
+    for weapon, _ in pairs(KLItems.CraftingItems.Weapons) do
+        data[player].Weapons[weapon] = 0
     end
 
     --/ potions
@@ -1117,15 +1316,64 @@ local function createMaterials(materials)
     end
 end
 
+local function findMaterialsNeededToCraft(object, item)
+	for i, v in pairs(object) do
+		if i ~= item then
+			local rerun = findMaterialsNeededToCraft(v, item)
+			return rerun
+		else
+			return v
+		end
+	end
+end
+
+local function doesPlayerHaveEnoughMaterials(itemData, playerData)
+    local playerHasEnough
+    for material, amount in pairs(itemData.MaterialsNeeded) do
+        if playerData[material] >= amount then
+            playerHasEnough = true
+        else
+            playerHasEnough = false
+            break
+        end
+    end
+    return playerHasEnough
+end
+
+local function handleCraft(player, itemToCraft)
+    local data = Sdk.data 
+    local CraftingItems = KLItems.CraftingItems
+    local itemToCraftData = findMaterialsNeededToCraft(CraftingItems, itemToCraft)
+    local playerInventory = data[player][itemToCraftData.TypeOfItem]
+    local playerMaterials = data[player].Materials
+
+    local playerHasMaterials = doesPlayerHaveEnoughMaterials(itemToCraftData, playerMaterials)
+    
+    if playerHasMaterials then
+        playerInventory[itemToCraft]+=1
+        
+        for material, amount in pairs(itemToCraftData.MaterialsNeeded) do
+            playerMaterials[material]-=amount
+        end
+
+        print('MESSAGE/Info:  ' .. player.Name .. ' has crafted a ' .. itemToCraft .. '.')
+    end
+end
+
 function Sdk.initialize()
-    createMaterials(KLMaterials)
+    createMaterials(KLItems.Materials)
 
     --/ Events
-    local potionEvent = Instance.new('RemoteEvent', ReplicatedStorage)
-    potionEvent.Name = 'potionEvent'
+    local KLEvents = Instance.new('Folder', ReplicatedStorage)
+    KLEvents.Name = 'KLEvents'
+    local potionEvent = Instance.new('RemoteEvent', KLEvents)
+    potionEvent.Name = 'PotionEvent'
+    local craftEvent = Instance.new('RemoteEvent', KLEvents)
+    craftEvent.Name = 'CraftEvent'
 
     --/ Event Bindings
     potionEvent.OnServerEvent:Connect(takesPotion)
+    craftEvent.OnServerEvent:Connect(handleCraft)
 
     game.Players.PlayerAdded:Connect(onPlayerAdded)
     game.Players.PlayerRemoving:Connect(onPlayerRemoving)
@@ -1215,22 +1463,6 @@ return Timer]]></ProtectedString>
 					<UniqueId name="UniqueId">0797fad6744dbc00026a493c0002551c</UniqueId>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX37AB1B0FA7E744818FB746682D3FEAB1">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">KLMaterials</string>
-					<string name="ScriptGuid">{CE4785B7-3C01-4E73-A111-110BE2DEF9CA}</string>
-					<ProtectedString name="Source"><![CDATA[local materials = {
-    'Sticks', 'Stone',
-}
-
-return materials]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">279e6850e1e911fd0289a31b0030d8c8</UniqueId>
-				</Properties>
-			</Item>
 			<Item class="ModuleScript" referent="RBX6CB8E79337B64301AAA90C241B9073A3">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1257,6 +1489,33 @@ return positions]]></ProtectedString>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 					<UniqueId name="UniqueId">279e6850e1e911fd0289a31b003538e2</UniqueId>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX3D3A22B0397C4FE8B75AC8EF1D92B5D6">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">KLItems</string>
+					<string name="ScriptGuid">{4306C6C2-9B01-4954-8519-2E95A9D9D40C}</string>
+					<ProtectedString name="Source"><![CDATA[local KLItems = {
+    Materials = { 'Sticks', 'Stone', },
+    CraftingItems = {
+        Weapons = { 
+            ['StoneAxe'] = {
+                ['TypeOfItem'] = 'Weapons',
+                ['MaterialsNeeded'] = {
+                    ['Sticks'] = 1,
+                    ['Stone'] = 1,
+                }
+            }, 
+        },
+    },
+}
+
+return KLItems]]></ProtectedString>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">3a30e11299ecaa2c02908143000b7222</UniqueId>
 				</Properties>
 			</Item>
 		</Item>
