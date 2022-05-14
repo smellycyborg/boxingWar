@@ -57,10 +57,10 @@ local function onPlayerAdded(player)
         data[player].Materials[material] = 0
     end
 
-    --/ materials
+    --/ weapons
     data[player].Weapons = {}
     for _, weapon in pairs(KLItems.Weapons) do
-        data[player].Materials[weapon] = 0
+        data[player].Weapons[weapon] = 0
     end
 
     --/ potions
@@ -130,12 +130,27 @@ local function createMaterials(materials)
     end
 end
 
-local function handleCraftEvent(toCraft)
+local function handleCraft(player, toCraft)
+    local data = Sdk.data 
+    local playerHasMaterials = true
 
+    local materials = { 'Sticks', 'Stone', }
+
+
+    -- Todo add materials needed and amount need to craft to KLItems module.  which will replace playerHasMaterials
+    if playerHasMaterials then
+        data[player].Weapons[toCraft]+=1
+        
+        for _, material in pairs(materials) do
+            data[player].Materials[material]-=1
+        end
+
+        print('MESSAGE/Info:  ' .. player.Name .. ' has crafted a ' .. toCraft .. '.')
+    end
 end
 
 function Sdk.initialize()
-    createMaterials(KLMaterials)
+    createMaterials(KLItems.Materials)
 
     --/ Events
     local KLEvents = Instance.new('Folder', ReplicatedStorage)
@@ -147,6 +162,7 @@ function Sdk.initialize()
 
     --/ Event Bindings
     potionEvent.OnServerEvent:Connect(takesPotion)
+    craftEvent.OnServerEvent:Connect(handleCraft)
 
     game.Players.PlayerAdded:Connect(onPlayerAdded)
     game.Players.PlayerRemoving:Connect(onPlayerRemoving)
