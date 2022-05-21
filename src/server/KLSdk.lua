@@ -110,7 +110,7 @@ end
 
 local function onPlayerRemoving(player)
     local data = Sdk.data
-    data[player] = nil 
+    data[player] = nil
 
     warn('MESSAGE/Info:  Data has been removed for ' .. player.Name .. '.')
 end
