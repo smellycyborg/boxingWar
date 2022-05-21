@@ -131,13 +131,8 @@ local function createMaterials(materials)
 end
 
 local function findMaterialsNeededToCraft(object, item)
-	for i, v in pairs(object) do
-		if i ~= item then
-			local rerun = findMaterialsNeededToCraft(v, item)
-			return rerun
-		else
-			return v
-		end
+	for _, v in pairs(object) do
+		return v[item]
 	end
 end
 
