@@ -49,7 +49,9 @@ for _, button in pairs(CraftingGui:GetDescendants()) do
         end)
     else
         if isItemButton then
-            button.MouseButton1Down:Connect(onItemClick)
+            button.MouseButton1Down:Connect(function()
+                onItemClick(button.Name)
+            end)
         end
     end
 end
