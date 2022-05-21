@@ -9,11 +9,12 @@ local CraftEvent = game.ReplicatedStorage.KLEvents.CraftEvent
 local function handleButtonInstance(value, parent)
     local valueButton = Instance.new('TextButton', parent)
     valueButton.Name = value
+    valueButton.Text = value
 end
 
-local function createItemButtons()
+local function createItemButtons(category)
     local function destroyOldButtons()
-        for _, v in pairs(CraftingItems) do
+        for _, v in pairs(CraftingItems:GetChildren()) do
             if v:IsA('TextButton') then
                 v:Destroy()
             end
@@ -21,15 +22,17 @@ local function createItemButtons()
     end
     destroyOldButtons()
 
-    for category, items in pairs(KLItems.CraftingItems) do
-        for item, _ in pairs(items) do
-            handleButtonInstance(item, CraftingItems)
+    for categoryIndex, items in pairs(KLItems.CraftingItems) do
+        if categoryIndex == category then
+            for item, _ in pairs(items) do
+                handleButtonInstance(item, CraftingItems)
+            end
         end
     end
 end
 
-local function onCatergoryClick()
-    createItemButtons()
+local function onCatergoryClick(value)
+    createItemButtons(value)
 end
 
 local function onItemClick(value)
@@ -41,7 +44,9 @@ for _, button in pairs(CraftingGui:GetDescendants()) do
     local isCategoryButton = button:IsA('TextButton') and button.Parent == CraftingCategories
     local isItemButton = button:IsA('TextButton') and button.Parent == CraftingItems
     if isCategoryButton then
-        button.MouseButton1Down:Connect(onCatergoryClick)
+        button.MouseButton1Down:Connect(function()
+            onCatergoryClick(button.Name)
+        end)
     else
         if isItemButton then
             button.MouseButton1Down:Connect(onItemClick)
