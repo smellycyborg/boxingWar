@@ -9,7 +9,7 @@ local function onClick()
 end
 
 for _, craftButton in pairs(CraftingButtonsHolder:GetChildren()) do
-    if craftButton:Isa('TextButton') then
+    if craftButton:IsA('TextButton') then
         craftButton.MouseButton1Down:Connect(onClick)
     end
 end
