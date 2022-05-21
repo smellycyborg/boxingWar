@@ -7,8 +7,15 @@ local KLItems = {
                 ['MaterialsNeeded'] = {
                     ['Sticks'] = 1,
                     ['Stone'] = 1,
-                }
-            }, 
+                },
+            },
+            ['StoneSword'] = {
+                ['TypeOfItem'] = 'Weapons',
+                ['MaterialsNeeded'] = {
+                    ['Sticks'] = 2,
+                    ['Stone'] = 2,
+                },
+            },
         },
     },
 }
