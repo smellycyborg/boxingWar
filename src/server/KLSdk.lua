@@ -1,6 +1,6 @@
 local KLDealer = require(script.Parent.KLDealer)
 local KLPositions = require(script.Parent.KLPositions)
-local KLItems = require(script.Parent.KLItems)
+local KLItems = require(game.ReplicatedStorage.Common.KLItems)
 local ReplicatedStorage = game.ReplicatedStorage
 
 local Sdk = {

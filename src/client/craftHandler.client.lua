@@ -1,4 +1,4 @@
-local KLItems = require(game.ServerScriptService.Server.KLItems)
+local KLItems = require(game.ReplicatedStorage.Common.KLItems)
 
 local PlayerGui = game.Players.LocalPlayer.PlayerGui
 local CraftingGui = PlayerGui:WaitForChild('CraftingGui')
