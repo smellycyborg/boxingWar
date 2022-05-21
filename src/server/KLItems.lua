@@ -2,13 +2,6 @@ local KLItems = {
     Materials = { 'Sticks', 'Stone', },
     CraftingItems = {
         Weapons = { 
-            ['StoneAxe'] = {
-                ['TypeOfItem'] = 'Weapons',
-                ['MaterialsNeeded'] = {
-                    ['Sticks'] = 1,
-                    ['Stone'] = 1,
-                },
-            },
             ['StoneSword'] = {
                 ['TypeOfItem'] = 'Weapons',
                 ['MaterialsNeeded'] = {
@@ -17,6 +10,22 @@ local KLItems = {
                 },
             },
         },
+        Tools = {
+            ['StoneAxe'] = {
+                ['TypeOfItem'] = 'Tools',
+                ['MaterialsNeeded'] = {
+                    ['Sticks'] = 1,
+                    ['Stone'] = 1,
+                },
+            },
+            ['StonePick'] = {
+                ['TypeOfItem'] = 'Tools',
+                ['MaterialsNeeded'] = {
+                    ['Sticks'] = 2,
+                    ['Stone'] = 1
+                },
+            },
+        }
     },
 }
 

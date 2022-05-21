@@ -57,10 +57,13 @@ local function onPlayerAdded(player)
         data[player].Materials[material] = 0
     end
 
-    --/ weapons
-    data[player].Weapons = {}
-    for weapon, _ in pairs(KLItems.CraftingItems.Weapons) do
-        data[player].Weapons[weapon] = 0
+    --/ crafting items
+    data[player].Items = {}
+    for category, items in pairs(KLItems.CraftingItems) do
+        data[player].Items[category] = {}
+        for item, _ in pairs(items) do
+            data[player].Items[category][item] = 0
+        end
     end
 
     --/ potions
@@ -157,7 +160,7 @@ local function handleCraft(player, itemToCraft)
     local data = Sdk.data 
     local CraftingItems = KLItems.CraftingItems
     local itemToCraftData = findMaterialsNeededToCraft(CraftingItems, itemToCraft)
-    local playerInventory = data[player][itemToCraftData.TypeOfItem]
+    local playerInventory = data[player].Items[itemToCraftData.TypeOfItem]
     local playerMaterials = data[player].Materials
 
     local playerHasMaterials = doesPlayerHaveEnoughMaterials(itemToCraftData, playerMaterials)
