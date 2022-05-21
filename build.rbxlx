@@ -644,18 +644,59 @@ end)]]></ProtectedString>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">craftHandler</string>
 						<string name="ScriptGuid">{26A1C3A6-4A04-47D4-AC60-5804DB657751}</string>
-						<ProtectedString name="Source"><![CDATA[local PlayerGui = game.Players.LocalPlayer.PlayerGui
+						<ProtectedString name="Source"><![CDATA[local KLItems = require(game.ReplicatedStorage.Common.KLItems)
+
+local PlayerGui = game.Players.LocalPlayer.PlayerGui
 local CraftingGui = PlayerGui:WaitForChild('CraftingGui')
-local CraftingButtonsHolder = CraftingGui.CraftingFrame
+local CraftingCategories = CraftingGui.CraftingCategories
+local CraftingItems = CraftingGui.CraftingItems
 local CraftEvent = game.ReplicatedStorage.KLEvents.CraftEvent
 
-for _, craftButton in pairs(CraftingButtonsHolder:GetChildren()) do
-    if craftButton:IsA('TextButton') then
-        local function onClick()
-            local toCraft = craftButton.Name
-            CraftEvent:FireServer(toCraft)
+local function handleButtonInstance(value, parent)
+    local valueButton = Instance.new('TextButton', parent)
+    valueButton.Name = value
+    valueButton.Text = value
+end
+
+local function createItemButtons(category)
+    local function destroyOldButtons()
+        for _, v in pairs(CraftingItems:GetChildren()) do
+            if v:IsA('TextButton') then
+                v:Destroy()
+            end
         end
-        craftButton.MouseButton1Down:Connect(onClick)
+    end
+    destroyOldButtons()
+
+    for categoryIndex, items in pairs(KLItems.CraftingItems) do
+        if categoryIndex == category then
+            for item, _ in pairs(items) do
+                handleButtonInstance(item, CraftingItems)
+            end
+        end
+    end
+end
+
+local function onCatergoryClick(value)
+    createItemButtons(value)
+end
+
+local function onItemClick(value)
+    local toCraft = value.Name
+    CraftEvent:FireServer(toCraft)
+end
+
+for _, button in pairs(CraftingGui:GetDescendants()) do
+    local isCategoryButton = button:IsA('TextButton') and button.Parent == CraftingCategories
+    local isItemButton = button:IsA('TextButton') and button.Parent == CraftingItems
+    if isCategoryButton then
+        button.MouseButton1Down:Connect(function()
+            onCatergoryClick(button.Name)
+        end)
+    else
+        if isItemButton then
+            button.MouseButton1Down:Connect(onItemClick)
+        end
     end
 end]]></ProtectedString>
 						<int64 name="SourceAssetId">-1</int64>
@@ -799,7 +840,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 					<bool name="ClipsDescendants">false</bool>
 					<bool name="Draggable">false</bool>
 					<int name="LayoutOrder">0</int>
-					<string name="Name">CraftingFrame</string>
+					<string name="Name">CraftingCategories</string>
 					<Ref name="NextSelectionDown">null</Ref>
 					<Ref name="NextSelectionLeft">null</Ref>
 					<Ref name="NextSelectionRight">null</Ref>
@@ -807,7 +848,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 					<UDim2 name="Position">
 						<XS>0.5</XS>
 						<XO>0</XO>
-						<YS>0.5</YS>
+						<YS>0.100000001</YS>
 						<YO>0</YO>
 					</UDim2>
 					<Ref name="RootLocalizationTable">null</Ref>
@@ -823,7 +864,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 					<UDim2 name="Size">
 						<XS>0.300000012</XS>
 						<XO>0</XO>
-						<YS>0.25</YS>
+						<YS>0.0250000004</YS>
 						<YO>0</YO>
 					</UDim2>
 					<token name="SizeConstraint">1</token>
@@ -834,122 +875,6 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 					<bool name="Visible">true</bool>
 					<int name="ZIndex">1</int>
 				</Properties>
-				<Item class="TextButton" referent="RBXC65F2DC68FE743A5903F08BBD39E3F50">
-					<Properties>
-						<bool name="Active">true</bool>
-						<Vector2 name="AnchorPoint">
-							<X>0.5</X>
-							<Y>0.5</Y>
-						</Vector2>
-						<BinaryString name="AttributesSerialize"></BinaryString>
-						<bool name="AutoButtonColor">true</bool>
-						<bool name="AutoLocalize">true</bool>
-						<token name="AutomaticSize">0</token>
-						<Color3 name="BackgroundColor3">
-							<R>1</R>
-							<G>1</G>
-							<B>1</B>
-						</Color3>
-						<float name="BackgroundTransparency">0</float>
-						<Color3 name="BorderColor3">
-							<R>0.105882362</R>
-							<G>0.164705887</G>
-							<B>0.207843155</B>
-						</Color3>
-						<token name="BorderMode">0</token>
-						<int name="BorderSizePixel">1</int>
-						<bool name="ClipsDescendants">false</bool>
-						<bool name="Draggable">false</bool>
-						<token name="Font">3</token>
-						<Font name="FontFace"></Font>
-						<int name="LayoutOrder">0</int>
-						<float name="LineHeight">1</float>
-						<int name="MaxVisibleGraphemes">-1</int>
-						<bool name="Modal">false</bool>
-						<string name="Name">StoneAxe</string>
-						<Ref name="NextSelectionDown">null</Ref>
-						<Ref name="NextSelectionLeft">null</Ref>
-						<Ref name="NextSelectionRight">null</Ref>
-						<Ref name="NextSelectionUp">null</Ref>
-						<UDim2 name="Position">
-							<XS>0.5</XS>
-							<XO>0</XO>
-							<YS>0.5</YS>
-							<YO>0</YO>
-						</UDim2>
-						<bool name="RichText">false</bool>
-						<Ref name="RootLocalizationTable">null</Ref>
-						<float name="Rotation">0</float>
-						<bool name="Selectable">true</bool>
-						<bool name="Selected">false</bool>
-						<token name="SelectionBehaviorDown">0</token>
-						<token name="SelectionBehaviorLeft">0</token>
-						<token name="SelectionBehaviorRight">0</token>
-						<token name="SelectionBehaviorUp">0</token>
-						<bool name="SelectionGroup">false</bool>
-						<Ref name="SelectionImageObject">null</Ref>
-						<int name="SelectionOrder">0</int>
-						<UDim2 name="Size">
-							<XS>1</XS>
-							<XO>0</XO>
-							<YS>0.200000003</YS>
-							<YO>0</YO>
-						</UDim2>
-						<token name="SizeConstraint">0</token>
-						<int64 name="SourceAssetId">-1</int64>
-						<token name="Style">0</token>
-						<BinaryString name="Tags"></BinaryString>
-						<string name="Text">stone axe</string>
-						<Color3 name="TextColor3">
-							<R>0</R>
-							<G>0</G>
-							<B>0</B>
-						</Color3>
-						<bool name="TextScaled">false</bool>
-						<float name="TextSize">14</float>
-						<Color3 name="TextStrokeColor3">
-							<R>0</R>
-							<G>0</G>
-							<B>0</B>
-						</Color3>
-						<float name="TextStrokeTransparency">1</float>
-						<float name="TextTransparency">0</float>
-						<token name="TextTruncate">0</token>
-						<bool name="TextWrapped">false</bool>
-						<token name="TextXAlignment">2</token>
-						<token name="TextYAlignment">1</token>
-						<UniqueId name="UniqueId">3a30e11299ecaa2c029081430004d084</UniqueId>
-						<bool name="Visible">true</bool>
-						<int name="ZIndex">1</int>
-					</Properties>
-				</Item>
-				<Item class="UIGridLayout" referent="RBXCAC7069B27834CFABB2BA1D9B701A78C">
-					<Properties>
-						<BinaryString name="AttributesSerialize"></BinaryString>
-						<UDim2 name="CellPadding">
-							<XS>0.00999999978</XS>
-							<XO>0</XO>
-							<YS>0.00999999978</YS>
-							<YO>0</YO>
-						</UDim2>
-						<UDim2 name="CellSize">
-							<XS>0.200000003</XS>
-							<XO>0</XO>
-							<YS>0.200000003</YS>
-							<YO>0</YO>
-						</UDim2>
-						<token name="FillDirection">0</token>
-						<int name="FillDirectionMaxCells">0</int>
-						<token name="HorizontalAlignment">1</token>
-						<string name="Name">UIGridLayout</string>
-						<token name="SortOrder">2</token>
-						<int64 name="SourceAssetId">-1</int64>
-						<token name="StartCorner">0</token>
-						<BinaryString name="Tags"></BinaryString>
-						<UniqueId name="UniqueId">24b80980db0e77fb0299eec40004c278</UniqueId>
-						<token name="VerticalAlignment">1</token>
-					</Properties>
-				</Item>
 				<Item class="TextButton" referent="RBX521B44C9C2104F01AC400FC6D33FBFCC">
 					<Properties>
 						<bool name="Active">true</bool>
@@ -982,7 +907,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<float name="LineHeight">1</float>
 						<int name="MaxVisibleGraphemes">-1</int>
 						<bool name="Modal">false</bool>
-						<string name="Name">StoneSword</string>
+						<string name="Name">Tools</string>
 						<Ref name="NextSelectionDown">null</Ref>
 						<Ref name="NextSelectionLeft">null</Ref>
 						<Ref name="NextSelectionRight">null</Ref>
@@ -1015,7 +940,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<int64 name="SourceAssetId">-1</int64>
 						<token name="Style">0</token>
 						<BinaryString name="Tags"></BinaryString>
-						<string name="Text">stone sword</string>
+						<string name="Text">tools</string>
 						<Color3 name="TextColor3">
 							<R>0</R>
 							<G>0</G>
@@ -1039,7 +964,34 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<int name="ZIndex">1</int>
 					</Properties>
 				</Item>
-				<Item class="TextButton" referent="RBX7D56E03A1C2D4C6D8E87440294BD76BD">
+				<Item class="UIGridLayout" referent="RBXCAC7069B27834CFABB2BA1D9B701A78C">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<UDim2 name="CellPadding">
+							<XS>0.00999999978</XS>
+							<XO>0</XO>
+							<YS>0.00999999978</YS>
+							<YO>0</YO>
+						</UDim2>
+						<UDim2 name="CellSize">
+							<XS>0.200000003</XS>
+							<XO>0</XO>
+							<YS>1</YS>
+							<YO>0</YO>
+						</UDim2>
+						<token name="FillDirection">0</token>
+						<int name="FillDirectionMaxCells">0</int>
+						<token name="HorizontalAlignment">1</token>
+						<string name="Name">UIGridLayout</string>
+						<token name="SortOrder">2</token>
+						<int64 name="SourceAssetId">-1</int64>
+						<token name="StartCorner">0</token>
+						<BinaryString name="Tags"></BinaryString>
+						<UniqueId name="UniqueId">24b80980db0e77fb0299eec40004c278</UniqueId>
+						<token name="VerticalAlignment">1</token>
+					</Properties>
+				</Item>
+				<Item class="TextButton" referent="RBXC65F2DC68FE743A5903F08BBD39E3F50">
 					<Properties>
 						<bool name="Active">true</bool>
 						<Vector2 name="AnchorPoint">
@@ -1071,7 +1023,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<float name="LineHeight">1</float>
 						<int name="MaxVisibleGraphemes">-1</int>
 						<bool name="Modal">false</bool>
-						<string name="Name">StonePick</string>
+						<string name="Name">Weapons</string>
 						<Ref name="NextSelectionDown">null</Ref>
 						<Ref name="NextSelectionLeft">null</Ref>
 						<Ref name="NextSelectionRight">null</Ref>
@@ -1104,7 +1056,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<int64 name="SourceAssetId">-1</int64>
 						<token name="Style">0</token>
 						<BinaryString name="Tags"></BinaryString>
-						<string name="Text">stone pick</string>
+						<string name="Text">weapons</string>
 						<Color3 name="TextColor3">
 							<R>0</R>
 							<G>0</G>
@@ -1123,9 +1075,98 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<bool name="TextWrapped">false</bool>
 						<token name="TextXAlignment">2</token>
 						<token name="TextYAlignment">1</token>
-						<UniqueId name="UniqueId">69fe09c8e9ed1936029a8e0b0002966e</UniqueId>
+						<UniqueId name="UniqueId">3a30e11299ecaa2c029081430004d084</UniqueId>
 						<bool name="Visible">true</bool>
 						<int name="ZIndex">1</int>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Frame" referent="RBXF3CF0767390E41D89E00D049186C0BE1">
+				<Properties>
+					<bool name="Active">false</bool>
+					<Vector2 name="AnchorPoint">
+						<X>0.5</X>
+						<Y>0.5</Y>
+					</Vector2>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<bool name="AutoLocalize">true</bool>
+					<token name="AutomaticSize">0</token>
+					<Color3 name="BackgroundColor3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<float name="BackgroundTransparency">0</float>
+					<Color3 name="BorderColor3">
+						<R>0.105882362</R>
+						<G>0.164705887</G>
+						<B>0.207843155</B>
+					</Color3>
+					<token name="BorderMode">0</token>
+					<int name="BorderSizePixel">1</int>
+					<bool name="ClipsDescendants">false</bool>
+					<bool name="Draggable">false</bool>
+					<int name="LayoutOrder">0</int>
+					<string name="Name">CraftingItems</string>
+					<Ref name="NextSelectionDown">null</Ref>
+					<Ref name="NextSelectionLeft">null</Ref>
+					<Ref name="NextSelectionRight">null</Ref>
+					<Ref name="NextSelectionUp">null</Ref>
+					<UDim2 name="Position">
+						<XS>0.5</XS>
+						<XO>0</XO>
+						<YS>0.5</YS>
+						<YO>0</YO>
+					</UDim2>
+					<Ref name="RootLocalizationTable">null</Ref>
+					<float name="Rotation">0</float>
+					<bool name="Selectable">false</bool>
+					<token name="SelectionBehaviorDown">0</token>
+					<token name="SelectionBehaviorLeft">0</token>
+					<token name="SelectionBehaviorRight">0</token>
+					<token name="SelectionBehaviorUp">0</token>
+					<bool name="SelectionGroup">false</bool>
+					<Ref name="SelectionImageObject">null</Ref>
+					<int name="SelectionOrder">0</int>
+					<UDim2 name="Size">
+						<XS>0.300000012</XS>
+						<XO>0</XO>
+						<YS>0.200000003</YS>
+						<YO>0</YO>
+					</UDim2>
+					<token name="SizeConstraint">1</token>
+					<int64 name="SourceAssetId">-1</int64>
+					<token name="Style">0</token>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">7f8f64e16a76e9a2029ab78d00029e08</UniqueId>
+					<bool name="Visible">true</bool>
+					<int name="ZIndex">1</int>
+				</Properties>
+				<Item class="UIGridLayout" referent="RBX6F720F8FC1F44C9CAE603CF6AF25A6F0">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<UDim2 name="CellPadding">
+							<XS>0.00999999978</XS>
+							<XO>0</XO>
+							<YS>0.00999999978</YS>
+							<YO>0</YO>
+						</UDim2>
+						<UDim2 name="CellSize">
+							<XS>0.200000003</XS>
+							<XO>0</XO>
+							<YS>0.200000003</YS>
+							<YO>0</YO>
+						</UDim2>
+						<token name="FillDirection">0</token>
+						<int name="FillDirectionMaxCells">0</int>
+						<token name="HorizontalAlignment">1</token>
+						<string name="Name">UIGridLayout</string>
+						<token name="SortOrder">2</token>
+						<int64 name="SourceAssetId">-1</int64>
+						<token name="StartCorner">0</token>
+						<BinaryString name="Tags"></BinaryString>
+						<UniqueId name="UniqueId">7f8f64e16a76e9a2029ab78d00029e0a</UniqueId>
+						<token name="VerticalAlignment">1</token>
 					</Properties>
 				</Item>
 			</Item>
@@ -1396,7 +1437,7 @@ return KLDealer]]></ProtectedString>
 					<string name="ScriptGuid">{D14BC5C1-F85E-437A-9BA0-357A7493DFF5}</string>
 					<ProtectedString name="Source"><![CDATA[local KLDealer = require(script.Parent.KLDealer)
 local KLPositions = require(script.Parent.KLPositions)
-local KLItems = require(script.Parent.KLItems)
+local KLItems = require(game.ReplicatedStorage.Common.KLItems)
 local ReplicatedStorage = game.ReplicatedStorage
 
 local Sdk = {
@@ -1506,7 +1547,7 @@ end
 
 local function onPlayerRemoving(player)
     local data = Sdk.data
-    data[player] = nil 
+    data[player] = nil
 
     warn('MESSAGE/Info:  Data has been removed for ' .. player.Name .. '.')
 end
@@ -1703,49 +1744,6 @@ return positions]]></ProtectedString>
 					<UniqueId name="UniqueId">279e6850e1e911fd0289a31b003538e2</UniqueId>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX3D3A22B0397C4FE8B75AC8EF1D92B5D6">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">KLItems</string>
-					<string name="ScriptGuid">{4306C6C2-9B01-4954-8519-2E95A9D9D40C}</string>
-					<ProtectedString name="Source"><![CDATA[local KLItems = {
-    Materials = { 'Sticks', 'Stone', },
-    CraftingItems = {
-        Weapons = { 
-            ['StoneSword'] = {
-                ['TypeOfItem'] = 'Weapons',
-                ['MaterialsNeeded'] = {
-                    ['Sticks'] = 2,
-                    ['Stone'] = 2,
-                },
-            },
-        },
-        Tools = {
-            ['StoneAxe'] = {
-                ['TypeOfItem'] = 'Tools',
-                ['MaterialsNeeded'] = {
-                    ['Sticks'] = 1,
-                    ['Stone'] = 1,
-                },
-            },
-            ['StonePick'] = {
-                ['TypeOfItem'] = 'Tools',
-                ['MaterialsNeeded'] = {
-                    ['Sticks'] = 2,
-                    ['Stone'] = 1
-                },
-            },
-        }
-    },
-}
-
-return KLItems]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">3a30e11299ecaa2c02908143000b7222</UniqueId>
-				</Properties>
-			</Item>
 		</Item>
 	</Item>
 	<Item class="ServerStorage" referent="RBX50D931C46ED54BEF8F69148D2DB13947">
@@ -1785,6 +1783,49 @@ end]]></ProtectedString>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 					<UniqueId name="UniqueId">440bc071e0b54ab3023da9940001af6c</UniqueId>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX15B9ADAAF83B41969FAC6E6342C12E4F">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">KLItems</string>
+					<string name="ScriptGuid">{37E3EE8E-B464-4B47-9CCF-0323B19EF931}</string>
+					<ProtectedString name="Source"><![CDATA[local KLItems = {
+    Materials = { 'Sticks', 'Stone', },
+    CraftingItems = {
+        Weapons = { 
+            ['StoneSword'] = {
+                ['TypeOfItem'] = 'Weapons',
+                ['MaterialsNeeded'] = {
+                    ['Sticks'] = 2,
+                    ['Stone'] = 2,
+                },
+            },
+        },
+        Tools = {
+            ['StoneAxe'] = {
+                ['TypeOfItem'] = 'Tools',
+                ['MaterialsNeeded'] = {
+                    ['Sticks'] = 1,
+                    ['Stone'] = 1,
+                },
+            },
+            ['StonePick'] = {
+                ['TypeOfItem'] = 'Tools',
+                ['MaterialsNeeded'] = {
+                    ['Sticks'] = 2,
+                    ['Stone'] = 1
+                },
+            },
+        }
+    },
+}
+
+return KLItems]]></ProtectedString>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">7f8f64e16a76e9a2029ab78d00071b91</UniqueId>
 				</Properties>
 			</Item>
 		</Item>
