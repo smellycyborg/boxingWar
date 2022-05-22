@@ -13,7 +13,7 @@ end
 local function handleButtonInstance(value, parent)
     local button = Instance.new('TextButton', parent)
     button.Name = value
-    button.Text = value
+    button.Text = string.lower(value:gsub("(%l)(%u)", "%1 %2"))
 
     button.MouseButton1Down:Connect(function()
         print('Im being clicked')
