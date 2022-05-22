@@ -191,7 +191,7 @@ function Sdk.initialize()
     local craftEvent = Instance.new('RemoteEvent', KLEvents)
     craftEvent.Name = 'CraftEvent'
     local craftingVisibleEvent = Instance.new('RemoteEvent', KLEvents)
-    craftingVisibleEvent = 'CraftingVisibleEvent'
+    craftingVisibleEvent.Name = 'CraftingVisibleEvent'
 
     --/ Event Bindings
     potionEvent.OnServerEvent:Connect(takesPotion)

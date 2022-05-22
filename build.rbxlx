@@ -81,27 +81,27 @@
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<CoordinateFrame name="CFrame">
-					<X>11.1802292</X>
-					<Y>32.0092964</Y>
-					<Z>12.9315033</Z>
-					<R00>0.413117886</R00>
-					<R01>-0.707381546</R01>
-					<R02>0.57353735</R02>
-					<R10>-1.49011612e-08</R10>
-					<R11>0.629791915</R11>
-					<R12>0.776763976</R12>
-					<R20>-0.910677612</R20>
-					<R21>-0.320895106</R21>
-					<R22>0.260178268</R22>
+					<X>3.58611107</X>
+					<Y>27.0978966</Y>
+					<Z>-15.6011848</Z>
+					<R00>-0.999780059</R00>
+					<R01>-0.0149833634</R01>
+					<R02>0.0146727543</R02>
+					<R10>-0</R10>
+					<R11>0.699662447</R11>
+					<R12>0.714473665</R12>
+					<R20>-0.0209711902</R20>
+					<R21>0.714316547</R21>
+					<R22>-0.699508607</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
 				<token name="CameraType">0</token>
 				<float name="FieldOfView">70</float>
 				<token name="FieldOfViewMode">0</token>
 				<CoordinateFrame name="Focus">
-					<X>10.0331573</X>
-					<Y>30.4557724</Y>
-					<Z>12.4111481</Z>
+					<X>3.55676556</X>
+					<Y>25.6689491</Y>
+					<Z>-14.2021675</Z>
 					<R00>1</R00>
 					<R01>0</R01>
 					<R02>0</R02>
@@ -650,7 +650,9 @@ local PlayerGui = game.Players.LocalPlayer.PlayerGui
 local CraftingGui = PlayerGui:WaitForChild('CraftingGui')
 local CraftingCategories = CraftingGui.CraftingCategories
 local CraftingItems = CraftingGui.CraftingItems
-local CraftEvent = game.ReplicatedStorage.KLEvents.CraftEvent
+local KLEvents = game.ReplicatedStorage:WaitForChild('KLEvents')
+local CraftEvent = KLEvents.CraftEvent
+local CraftingVisibleEvent = KLEvents.CraftingVisibleEvent
 
 local function onItemClick(toCraft)
     CraftEvent:FireServer(toCraft)
@@ -660,6 +662,10 @@ local function handleButtonInstance(value, parent)
     local button = Instance.new('TextButton', parent)
     button.Name = value
     button.Text = string.lower(value:gsub("(%l)(%u)", "%1 %2"))
+    button.BackgroundTransparency = 1
+    button.BackgroundColor3 = Color3.new(0, 0, 0)
+    button.BorderSizePixel = 0
+    button.TextColor3 = Color3.new(255, 255, 255)
 
     button.MouseButton1Down:Connect(function()
         onItemClick(button.Name)
@@ -689,10 +695,6 @@ local function onCatergoryClick(value)
     createItemButtons(value)
 end
 
-local function onItemClick(toCraft)
-    CraftEvent:FireServer(toCraft)
-end
-
 for _, button in pairs(CraftingCategories:GetChildren()) do
     local isButton = button:IsA('TextButton')
     if isButton then
@@ -702,7 +704,12 @@ for _, button in pairs(CraftingCategories:GetChildren()) do
     end
 end
 
-]]></ProtectedString>
+local function handleCraftingVisible()
+    CraftingGui.Enabled = not CraftingGui.Enabled
+end
+
+-- / Bindings
+CraftingVisibleEvent.OnClientEvent:Connect(handleCraftingVisible)]]></ProtectedString>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
 						<UniqueId name="UniqueId">3a30e11299ecaa2c029081430004d1b3</UniqueId>
@@ -833,7 +840,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<G>1</G>
 						<B>1</B>
 					</Color3>
-					<float name="BackgroundTransparency">0</float>
+					<float name="BackgroundTransparency">1</float>
 					<Color3 name="BorderColor3">
 						<R>0.105882362</R>
 						<G>0.164705887</G>
@@ -866,12 +873,12 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 					<Ref name="SelectionImageObject">null</Ref>
 					<int name="SelectionOrder">0</int>
 					<UDim2 name="Size">
-						<XS>0.300000012</XS>
+						<XS>0.699999988</XS>
 						<XO>0</XO>
-						<YS>0.0250000004</YS>
+						<YS>0.0500000007</YS>
 						<YO>0</YO>
 					</UDim2>
-					<token name="SizeConstraint">1</token>
+					<token name="SizeConstraint">2</token>
 					<int64 name="SourceAssetId">-1</int64>
 					<token name="Style">0</token>
 					<BinaryString name="Tags"></BinaryString>
@@ -895,14 +902,14 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 							<G>1</G>
 							<B>1</B>
 						</Color3>
-						<float name="BackgroundTransparency">0</float>
+						<float name="BackgroundTransparency">1</float>
 						<Color3 name="BorderColor3">
 							<R>0.105882362</R>
 							<G>0.164705887</G>
 							<B>0.207843155</B>
 						</Color3>
 						<token name="BorderMode">0</token>
-						<int name="BorderSizePixel">1</int>
+						<int name="BorderSizePixel">0</int>
 						<bool name="ClipsDescendants">false</bool>
 						<bool name="Draggable">false</bool>
 						<token name="Font">3</token>
@@ -937,7 +944,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<UDim2 name="Size">
 							<XS>1</XS>
 							<XO>0</XO>
-							<YS>0.200000003</YS>
+							<YS>0.100000001</YS>
 							<YO>0</YO>
 						</UDim2>
 						<token name="SizeConstraint">0</token>
@@ -946,9 +953,9 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<BinaryString name="Tags"></BinaryString>
 						<string name="Text">tools</string>
 						<Color3 name="TextColor3">
-							<R>0</R>
-							<G>0</G>
-							<B>0</B>
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
 						</Color3>
 						<bool name="TextScaled">false</bool>
 						<float name="TextSize">14</float>
@@ -1011,14 +1018,14 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 							<G>1</G>
 							<B>1</B>
 						</Color3>
-						<float name="BackgroundTransparency">0</float>
+						<float name="BackgroundTransparency">1</float>
 						<Color3 name="BorderColor3">
 							<R>0.105882362</R>
 							<G>0.164705887</G>
 							<B>0.207843155</B>
 						</Color3>
 						<token name="BorderMode">0</token>
-						<int name="BorderSizePixel">1</int>
+						<int name="BorderSizePixel">0</int>
 						<bool name="ClipsDescendants">false</bool>
 						<bool name="Draggable">false</bool>
 						<token name="Font">3</token>
@@ -1062,9 +1069,9 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<BinaryString name="Tags"></BinaryString>
 						<string name="Text">weapons</string>
 						<Color3 name="TextColor3">
-							<R>0</R>
-							<G>0</G>
-							<B>0</B>
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
 						</Color3>
 						<bool name="TextScaled">false</bool>
 						<float name="TextSize">14</float>
@@ -1100,14 +1107,14 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<G>1</G>
 						<B>1</B>
 					</Color3>
-					<float name="BackgroundTransparency">0</float>
+					<float name="BackgroundTransparency">1</float>
 					<Color3 name="BorderColor3">
 						<R>0.105882362</R>
 						<G>0.164705887</G>
 						<B>0.207843155</B>
 					</Color3>
 					<token name="BorderMode">0</token>
-					<int name="BorderSizePixel">1</int>
+					<int name="BorderSizePixel">0</int>
 					<bool name="ClipsDescendants">false</bool>
 					<bool name="Draggable">false</bool>
 					<int name="LayoutOrder">0</int>
@@ -1133,12 +1140,12 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 					<Ref name="SelectionImageObject">null</Ref>
 					<int name="SelectionOrder">0</int>
 					<UDim2 name="Size">
-						<XS>0.300000012</XS>
+						<XS>0.699999988</XS>
 						<XO>0</XO>
-						<YS>0.200000003</YS>
+						<YS>0.400000006</YS>
 						<YO>0</YO>
 					</UDim2>
-					<token name="SizeConstraint">1</token>
+					<token name="SizeConstraint">2</token>
 					<int64 name="SourceAssetId">-1</int64>
 					<token name="Style">0</token>
 					<BinaryString name="Tags"></BinaryString>
@@ -1156,7 +1163,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 							<YO>0</YO>
 						</UDim2>
 						<UDim2 name="CellSize">
-							<XS>0.200000003</XS>
+							<XS>0.300000012</XS>
 							<XO>0</XO>
 							<YS>0.200000003</YS>
 							<YO>0</YO>
@@ -1631,6 +1638,8 @@ function Sdk.initialize()
     potionEvent.Name = 'PotionEvent'
     local craftEvent = Instance.new('RemoteEvent', KLEvents)
     craftEvent.Name = 'CraftEvent'
+    local craftingVisibleEvent = Instance.new('RemoteEvent', KLEvents)
+    craftingVisibleEvent.Name = 'CraftingVisibleEvent'
 
     --/ Event Bindings
     potionEvent.OnServerEvent:Connect(takesPotion)

@@ -4,8 +4,9 @@ local PlayerGui = game.Players.LocalPlayer.PlayerGui
 local CraftingGui = PlayerGui:WaitForChild('CraftingGui')
 local CraftingCategories = CraftingGui.CraftingCategories
 local CraftingItems = CraftingGui.CraftingItems
-local CraftEvent = game.ReplicatedStorage.KLEvents.CraftEvent
-local CraftingVisibleEvent = game.ReplicatedStorage.KLEvents.CraftingVisibleEvent
+local KLEvents = game.ReplicatedStorage:WaitForChild('KLEvents')
+local CraftEvent = KLEvents.CraftEvent
+local CraftingVisibleEvent = KLEvents.CraftingVisibleEvent
 
 local function onItemClick(toCraft)
     CraftEvent:FireServer(toCraft)
@@ -15,6 +16,10 @@ local function handleButtonInstance(value, parent)
     local button = Instance.new('TextButton', parent)
     button.Name = value
     button.Text = string.lower(value:gsub("(%l)(%u)", "%1 %2"))
+    button.BackgroundTransparency = 1
+    button.BackgroundColor3 = Color3.new(0, 0, 0)
+    button.BorderSizePixel = 0
+    button.TextColor3 = Color3.new(255, 255, 255)
 
     button.MouseButton1Down:Connect(function()
         onItemClick(button.Name)
@@ -44,10 +49,6 @@ local function onCatergoryClick(value)
     createItemButtons(value)
 end
 
-local function onItemClick(toCraft)
-    CraftEvent:FireServer(toCraft)
-end
-
 for _, button in pairs(CraftingCategories:GetChildren()) do
     local isButton = button:IsA('TextButton')
     if isButton then
@@ -63,6 +64,3 @@ end
 
 -- / Bindings
 CraftingVisibleEvent.OnClientEvent:Connect(handleCraftingVisible)
-
-
-
