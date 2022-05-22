@@ -16,7 +16,6 @@ local function handleButtonInstance(value, parent)
     button.Text = string.lower(value:gsub("(%l)(%u)", "%1 %2"))
 
     button.MouseButton1Down:Connect(function()
-        print('Im being clicked')
         onItemClick(button.Name)
     end)
 end
