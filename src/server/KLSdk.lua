@@ -133,9 +133,13 @@ local function createMaterials(materials)
     end
 end
 
-local function findMaterialsNeededToCraft(object, item)
-	for _, v in pairs(object) do
-		return v[item]
+local function findItemData(object, item)
+	for index, value in pairs(object) do
+		if value[item] == nil then
+			continue
+		else
+			return value[item]
+		end
 	end
 end
 
@@ -159,7 +163,7 @@ end
 local function handleCraft(player, itemToCraft)
     local data = Sdk.data 
     local CraftingItems = KLItems.CraftingItems
-    local itemToCraftData = findMaterialsNeededToCraft(CraftingItems, itemToCraft)
+    local itemToCraftData = findItemData(CraftingItems, itemToCraft)
     local playerInventory = data[player].Items[itemToCraftData.TypeOfItem]
     local playerMaterials = data[player].Materials
 
