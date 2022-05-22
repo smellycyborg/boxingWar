@@ -5,6 +5,7 @@ local CraftingGui = PlayerGui:WaitForChild('CraftingGui')
 local CraftingCategories = CraftingGui.CraftingCategories
 local CraftingItems = CraftingGui.CraftingItems
 local CraftEvent = game.ReplicatedStorage.KLEvents.CraftEvent
+local CraftingVisibleEvent = game.ReplicatedStorage.KLEvents.CraftingVisibleEvent
 
 local function onItemClick(toCraft)
     CraftEvent:FireServer(toCraft)
@@ -55,4 +56,13 @@ for _, button in pairs(CraftingCategories:GetChildren()) do
         end)
     end
 end
+
+local function handleCraftingVisible()
+    CraftingGui.Enabled = not CraftingGui.Enabled
+end
+
+-- / Bindings
+CraftingVisibleEvent.OnClientEvent:Connect(handleCraftingVisible)
+
+
 
