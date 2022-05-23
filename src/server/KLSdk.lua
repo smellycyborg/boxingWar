@@ -31,8 +31,21 @@ local function onCharacterAdded(character)
     end
 end
 
-local function onCharacterRemoving(player)
-    -- make data 0
+local function onCharacterRemoving(character)
+    local player = game.Players:GetPlayerFromCharacter(character)
+    local data = Sdk.data
+	for category, items in pairs(data[player]) do
+        local isPotions = category == 'Potions'
+        if isPotions then
+            for item, _ in pairs(items) do
+                data[player][category][item].bool = true
+            end
+        else
+            for item, _ in pairs(items) do
+                data[player][category][item] = 0
+            end
+        end
+	end
 end
 
 local function takesPotion(player, potion)
