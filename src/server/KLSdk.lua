@@ -12,7 +12,7 @@ local function onCharacherTouched(part, player)
     if not attribute then return end
 
     local data = Sdk.data
-    data[player].Materials[attribute]+=1
+    data[player].Materials[attribute].amount+=1
     part:Destroy()
     print('MESSAGE/Info: ' .. player.Name .. ' has picked up a ' .. attribute .. ' and their ' .. attribute .. ' are now ' .. data[player].Materials[attribute] .. '.')
 end
@@ -35,17 +35,22 @@ local function onCharacterRemoving(character)
     local player = game.Players:GetPlayerFromCharacter(character)
     local data = Sdk.data
 	for category, items in pairs(data[player]) do
-        local isPotions = category == 'Potions'
-        if isPotions then
-            for item, _ in pairs(items) do
-                data[player][category][item].bool = true
-            end
+        local isCanHurt = category == 'canHurt'
+        if isCanHurt then
+            continue
         else
-            for item, _ in pairs(items) do
-                data[player][category][item] = 0
+            local isPotions = category == 'Potions'
+            if isPotions then
+                for item, value in pairs(items) do
+                    value.bool = false
+                end
+            else
+                for item, value in pairs(items) do
+                    value.amount = 0
+                end
             end
         end
-	end
+    end
 end
 
 local function takesPotion(player, potion)
@@ -71,7 +76,7 @@ local function onPlayerAdded(player)
     --/ materials
     data[player].Materials = {}
     for _, material in pairs(KLItems.Materials) do
-        data[player].Materials[material] = 0
+        data[player].Materials[material] = {amount = 0, }
     end
 
     --/ crafting items
@@ -79,7 +84,7 @@ local function onPlayerAdded(player)
     for category, items in pairs(KLItems.CraftingItems) do
         data[player].Items[category] = {}
         for item, _ in pairs(items) do
-            data[player].Items[category][item] = 0
+            data[player].Items[category][item] = {amount = 0, }
         end
     end
 
