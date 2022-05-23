@@ -167,7 +167,6 @@ local function doesPlayerHaveEnoughMaterials(itemData, playerData)
     return playerHasEnough
 end
 
---TODO: create a handle inventory for craft function (not important)
 local function handleDataForCraft()
 end
 
