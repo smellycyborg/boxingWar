@@ -1,6 +1,6 @@
 local KLItems = {
-    Materials = { 'Sticks', 'Stone', },
-    CraftingItems = {
+    Materials = { 'Sticks', 'Stone', 'Leaves', 'PureWater'},
+    Items = {
         Weapons = { 
             ['StoneSword'] = {
                 ['TypeOfItem'] = 'Weapons',
@@ -23,6 +23,30 @@ local KLItems = {
                 ['MaterialsNeeded'] = {
                     ['Sticks'] = 2,
                     ['Stone'] = 1
+                },
+            },
+        },
+        Potions = {
+            ['HalfPot'] = {
+                ['TypeOfItem'] = 'Potion',
+                ['MaterialsNeeded'] = {
+                    ['Leaves'] = 1,
+                    ['PureWater'] = 1,
+                },
+                ['Stats'] = {
+                    amount = 0,
+                    value = 50,
+                },
+            },
+            ['FullPot'] = {
+                ['TypeOfItem'] = 'Potion',
+                ['MaterialsNeeded'] = {
+                    ['Leaves'] = 1,
+                    ['PureWater'] = 1,
+                },
+                ['Stats'] = {
+                    amount = 0,
+                    value = 100
                 },
             },
         }

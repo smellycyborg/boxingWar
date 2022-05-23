@@ -44,7 +44,7 @@ local function createItemButtons(category)
     if isOpen ~= category then
         destroyOldButtons()
 
-        for categoryIndex, items in pairs(KLItems.CraftingItems) do
+        for categoryIndex, items in pairs(KLItems.Items) do
             if categoryIndex == category then
                 for item, _ in pairs(items) do
                     handleButtonInstance(item, CraftingItems)

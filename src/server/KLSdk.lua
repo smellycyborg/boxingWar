@@ -14,7 +14,7 @@ local function onCharacherTouched(part, player)
     local data = Sdk.data
     data[player].Materials[attribute].amount+=1
     part:Destroy()
-    print('MESSAGE/Info: ' .. player.Name .. ' has picked up a ' .. attribute .. ' and their ' .. attribute .. ' are now ' .. data[player].Materials[attribute] .. '.')
+    print('MESSAGE/Info: ' .. player.Name .. ' has picked up a ' .. attribute .. ' and their ' .. attribute .. ' are now ' .. data[player].Materials[attribute].amount .. '.')
 end
 
 local function onCharacterAdded(character)
@@ -55,21 +55,22 @@ end
 
 local function takesPotion(player, potion)
     local data = Sdk.data
-    local potions = data[player].Potions
-    local potionBool = potions[potion].bool
+    local potions = data[player].Items['Potions']
+    local potionAmount = potions[potion].amount
     local potionValue = potions[potion].value
 
-    local hasPotion = potionBool == true
+    local hasPotion = potionAmount > 0
     if hasPotion then
-        data[player].Potions[potion].bool = false
+        data[player].Items['Potions'][potion].amount-=1
         KLDealer.addHealth(player, potionValue)
 
         print('MESSAGE/Info: ' .. player.Name .. ' took a '.. potion .. ' potion and has been given more health.  :)')
+    else
+        print('MESSAGE/Info: ' .. player.Name .. ' has no potion.')
     end
 end
 
 local function onPlayerAdded(player)
-
     local data = Sdk.data
     data[player] = {}
 
@@ -81,17 +82,12 @@ local function onPlayerAdded(player)
 
     --/ crafting items
     data[player].Items = {}
-    for category, items in pairs(KLItems.CraftingItems) do
+    for category, items in pairs(KLItems.Items) do
         data[player].Items[category] = {}
         for item, _ in pairs(items) do
             data[player].Items[category][item] = {amount = 0, }
         end
     end
-
-    --/ potions
-    data[player].Potions = {}
-    data[player].Potions['halfHealth'] = {bool = true, value = 50}
-    data[player].Potions['fullHealth'] = {bool = true, value = 100}
 
     --/ canHurt
     data[player].canHurt = true
@@ -158,6 +154,10 @@ end
 
 local function createMaterials(materials)
     for _, material in pairs(materials) do
+        local isPureWater = material == 'PureWater'
+        if isPureWater then 
+            continue
+        end
         cloneMaterials(material)
     end
 end
@@ -190,8 +190,8 @@ end
 
 local function handleCraft(player, itemToCraft)
     local data = Sdk.data 
-    local CraftingItems = KLItems.CraftingItems
-    local itemToCraftData = findItemData(CraftingItems, itemToCraft)
+    local Items = KLItems.ItemsItems
+    local itemToCraftData = findItemData(Items, itemToCraft)
     local playerInventory = data[player].Items[itemToCraftData.TypeOfItem]
     local playerMaterials = data[player].Materials
 
