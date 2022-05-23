@@ -3,11 +3,14 @@ local KLItems = require(game.ReplicatedStorage.Common.KLItems)
 local PlayerGui = game.Players.LocalPlayer.PlayerGui
 local CraftingGui = PlayerGui:WaitForChild('CraftingGui')
 local MainGui = PlayerGui:WaitForChild('MainGui')
+local KLEvents = game.ReplicatedStorage:WaitForChild('KLEvents')
 local CraftingCategories = CraftingGui.CraftingCategories
 local CraftingItems = CraftingGui.CraftingItems
-local KLEvents = game.ReplicatedStorage:WaitForChild('KLEvents')
+
 local CraftEvent = KLEvents.CraftEvent
 local CraftButton = MainGui.CraftButton
+
+local isOpen = nil
 
 local function onItemClick(toCraft)
     CraftEvent:FireServer(toCraft)
@@ -27,15 +30,15 @@ local function handleButtonInstance(value, parent)
     end)
 end
 
-local isOpen = nil
-local function createItemButtons(category)
-    local function destroyOldButtons()
-        for _, v in pairs(CraftingItems:GetChildren()) do
-            if v:IsA('TextButton') then
-                v:Destroy()
-            end
+local function destroyOldButtons()
+    for _, v in pairs(CraftingItems:GetChildren()) do
+        if v:IsA('TextButton') then
+            v:Destroy()
         end
     end
+end
+
+local function createItemButtons(category)
     if isOpen ~= category then
         destroyOldButtons()
 
@@ -68,6 +71,11 @@ end
 
 local function handleCraftingVisible()
     CraftingGui.Enabled = not CraftingGui.Enabled
+
+    if CraftingGui.Enabled == true then
+        destroyOldButtons()
+        isOpen = nil
+    end
 end
 
 -- / Bindings
