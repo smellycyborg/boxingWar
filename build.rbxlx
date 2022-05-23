@@ -646,14 +646,16 @@ end)]]></ProtectedString>
 						<string name="ScriptGuid">{26A1C3A6-4A04-47D4-AC60-5804DB657751}</string>
 						<ProtectedString name="Source"><![CDATA[local KLItems = require(game.ReplicatedStorage.Common.KLItems)
 
+--/ Events
+local KLEvents = game.ReplicatedStorage:WaitForChild('KLEvents')
+local CraftEvent = KLEvents.CraftEvent
+
+--/ Gui
 local PlayerGui = game.Players.LocalPlayer.PlayerGui
 local CraftingGui = PlayerGui:WaitForChild('CraftingGui')
 local MainGui = PlayerGui:WaitForChild('MainGui')
-local KLEvents = game.ReplicatedStorage:WaitForChild('KLEvents')
 local CraftingCategories = CraftingGui.CraftingCategories
 local CraftingItems = CraftingGui.CraftingItems
-
-local CraftEvent = KLEvents.CraftEvent
 local CraftButton = MainGui.CraftButton
 
 local isOpen = nil
@@ -1586,7 +1588,7 @@ local function onCharacherTouched(part, player)
     if not attribute then return end
 
     local data = Sdk.data
-    data[player].Materials[attribute]+=1
+    data[player].Materials[attribute].amount+=1
     part:Destroy()
     print('MESSAGE/Info: ' .. player.Name .. ' has picked up a ' .. attribute .. ' and their ' .. attribute .. ' are now ' .. data[player].Materials[attribute] .. '.')
 end
@@ -1605,8 +1607,26 @@ local function onCharacterAdded(character)
     end
 end
 
-local function onCharacterRemoving(player)
-    -- make data 0
+local function onCharacterRemoving(character)
+    local player = game.Players:GetPlayerFromCharacter(character)
+    local data = Sdk.data
+	for category, items in pairs(data[player]) do
+        local isCanHurt = category == 'canHurt'
+        if isCanHurt then
+            continue
+        else
+            local isPotions = category == 'Potions'
+            if isPotions then
+                for item, value in pairs(items) do
+                    value.bool = false
+                end
+            else
+                for item, value in pairs(items) do
+                    value.amount = 0
+                end
+            end
+        end
+    end
 end
 
 local function takesPotion(player, potion)
@@ -1632,7 +1652,7 @@ local function onPlayerAdded(player)
     --/ materials
     data[player].Materials = {}
     for _, material in pairs(KLItems.Materials) do
-        data[player].Materials[material] = 0
+        data[player].Materials[material] = {amount = 0, }
     end
 
     --/ crafting items
@@ -1640,7 +1660,7 @@ local function onPlayerAdded(player)
     for category, items in pairs(KLItems.CraftingItems) do
         data[player].Items[category] = {}
         for item, _ in pairs(items) do
-            data[player].Items[category][item] = 0
+            data[player].Items[category][item] = {amount = 0, }
         end
     end
 
