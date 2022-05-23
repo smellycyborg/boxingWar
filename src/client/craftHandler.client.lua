@@ -1,13 +1,15 @@
 local KLItems = require(game.ReplicatedStorage.Common.KLItems)
 
+--/ Events
+local KLEvents = game.ReplicatedStorage:WaitForChild('KLEvents')
+local CraftEvent = KLEvents.CraftEvent
+
+--/ Gui
 local PlayerGui = game.Players.LocalPlayer.PlayerGui
 local CraftingGui = PlayerGui:WaitForChild('CraftingGui')
 local MainGui = PlayerGui:WaitForChild('MainGui')
-local KLEvents = game.ReplicatedStorage:WaitForChild('KLEvents')
 local CraftingCategories = CraftingGui.CraftingCategories
 local CraftingItems = CraftingGui.CraftingItems
-
-local CraftEvent = KLEvents.CraftEvent
 local CraftButton = MainGui.CraftButton
 
 local isOpen = nil
