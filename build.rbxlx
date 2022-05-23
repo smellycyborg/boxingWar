@@ -81,17 +81,17 @@
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<CoordinateFrame name="CFrame">
-					<X>3.58611107</X>
-					<Y>27.0978966</Y>
-					<Z>-15.6011848</Z>
-					<R00>-0.999780059</R00>
-					<R01>-0.0149833634</R01>
-					<R02>0.0146727543</R02>
+					<X>-0.479809761</X>
+					<Y>28.3407326</Y>
+					<Z>-20.7210617</Z>
+					<R00>-0.999780178</R00>
+					<R01>-0.0149828773</R01>
+					<R02>0.0146722775</R02>
 					<R10>-0</R10>
-					<R11>0.699662447</R11>
+					<R11>0.699662507</R11>
 					<R12>0.714473665</R12>
-					<R20>-0.0209711902</R20>
-					<R21>0.714316547</R21>
+					<R20>-0.0209705103</R20>
+					<R21>0.714316607</R21>
 					<R22>-0.699508607</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
@@ -99,9 +99,9 @@
 				<float name="FieldOfView">70</float>
 				<token name="FieldOfViewMode">0</token>
 				<CoordinateFrame name="Focus">
-					<X>3.55676556</X>
-					<Y>25.6689491</Y>
-					<Z>-14.2021675</Z>
+					<X>-0.50915432</X>
+					<Y>26.9117851</Y>
+					<Z>-19.3220444</Z>
 					<R00>1</R00>
 					<R01>0</R01>
 					<R02>0</R02>
@@ -648,11 +648,12 @@ end)]]></ProtectedString>
 
 local PlayerGui = game.Players.LocalPlayer.PlayerGui
 local CraftingGui = PlayerGui:WaitForChild('CraftingGui')
+local MainGui = PlayerGui:WaitForChild('MainGui')
 local CraftingCategories = CraftingGui.CraftingCategories
 local CraftingItems = CraftingGui.CraftingItems
 local KLEvents = game.ReplicatedStorage:WaitForChild('KLEvents')
 local CraftEvent = KLEvents.CraftEvent
-local CraftingVisibleEvent = KLEvents.CraftingVisibleEvent
+local CraftButton = MainGui.CraftButton
 
 local function onItemClick(toCraft)
     CraftEvent:FireServer(toCraft)
@@ -665,13 +666,14 @@ local function handleButtonInstance(value, parent)
     button.BackgroundTransparency = 1
     button.BackgroundColor3 = Color3.new(0, 0, 0)
     button.BorderSizePixel = 0
-    button.TextColor3 = Color3.new(255, 255, 255)
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
 
     button.MouseButton1Down:Connect(function()
         onItemClick(button.Name)
     end)
 end
 
+local isOpen = nil
 local function createItemButtons(category)
     local function destroyOldButtons()
         for _, v in pairs(CraftingItems:GetChildren()) do
@@ -680,14 +682,20 @@ local function createItemButtons(category)
             end
         end
     end
-    destroyOldButtons()
+    if isOpen ~= category then
+        destroyOldButtons()
 
-    for categoryIndex, items in pairs(KLItems.CraftingItems) do
-        if categoryIndex == category then
-            for item, _ in pairs(items) do
-                handleButtonInstance(item, CraftingItems)
+        for categoryIndex, items in pairs(KLItems.CraftingItems) do
+            if categoryIndex == category then
+                for item, _ in pairs(items) do
+                    handleButtonInstance(item, CraftingItems)
+                end
             end
         end
+        isOpen = category
+    else
+        destroyOldButtons()
+        isOpen = nil
     end
 end
 
@@ -709,7 +717,7 @@ local function handleCraftingVisible()
 end
 
 -- / Bindings
-CraftingVisibleEvent.OnClientEvent:Connect(handleCraftingVisible)]]></ProtectedString>
+CraftButton.MouseButton1Down:Connect(handleCraftingVisible)]]></ProtectedString>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
 						<UniqueId name="UniqueId">3a30e11299ecaa2c029081430004d1b3</UniqueId>
@@ -810,7 +818,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<bool name="AutoLocalize">true</bool>
 				<int name="DisplayOrder">0</int>
-				<bool name="Enabled">true</bool>
+				<bool name="Enabled">false</bool>
 				<bool name="IgnoreGuiInset">false</bool>
 				<string name="Name">CraftingGui</string>
 				<bool name="ResetOnSpawn">true</bool>
@@ -1182,6 +1190,116 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 				</Item>
 			</Item>
 		</Item>
+		<Item class="ScreenGui" referent="RBX0692D37CA227492F8174ADAAEC2E98B1">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<bool name="AutoLocalize">true</bool>
+				<int name="DisplayOrder">0</int>
+				<bool name="Enabled">true</bool>
+				<bool name="IgnoreGuiInset">false</bool>
+				<string name="Name">MainGui</string>
+				<bool name="ResetOnSpawn">true</bool>
+				<Ref name="RootLocalizationTable">null</Ref>
+				<token name="SelectionBehaviorDown">0</token>
+				<token name="SelectionBehaviorLeft">0</token>
+				<token name="SelectionBehaviorRight">0</token>
+				<token name="SelectionBehaviorUp">0</token>
+				<bool name="SelectionGroup">false</bool>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+				<UniqueId name="UniqueId">06803fd92c6e2827029c2e050008e7b1</UniqueId>
+				<token name="ZIndexBehavior">1</token>
+			</Properties>
+			<Item class="TextButton" referent="RBX44A897C94C544AE4B8553E79AEBA24EC">
+				<Properties>
+					<bool name="Active">true</bool>
+					<Vector2 name="AnchorPoint">
+						<X>0.5</X>
+						<Y>0.5</Y>
+					</Vector2>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<bool name="AutoButtonColor">true</bool>
+					<bool name="AutoLocalize">true</bool>
+					<token name="AutomaticSize">0</token>
+					<Color3 name="BackgroundColor3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<float name="BackgroundTransparency">1</float>
+					<Color3 name="BorderColor3">
+						<R>0.105882362</R>
+						<G>0.164705887</G>
+						<B>0.207843155</B>
+					</Color3>
+					<token name="BorderMode">0</token>
+					<int name="BorderSizePixel">0</int>
+					<bool name="ClipsDescendants">false</bool>
+					<bool name="Draggable">false</bool>
+					<token name="Font">3</token>
+					<Font name="FontFace"></Font>
+					<int name="LayoutOrder">0</int>
+					<float name="LineHeight">1</float>
+					<int name="MaxVisibleGraphemes">-1</int>
+					<bool name="Modal">false</bool>
+					<string name="Name">CraftButton</string>
+					<Ref name="NextSelectionDown">null</Ref>
+					<Ref name="NextSelectionLeft">null</Ref>
+					<Ref name="NextSelectionRight">null</Ref>
+					<Ref name="NextSelectionUp">null</Ref>
+					<UDim2 name="Position">
+						<XS>0.5</XS>
+						<XO>0</XO>
+						<YS>0.0500000007</YS>
+						<YO>0</YO>
+					</UDim2>
+					<bool name="RichText">false</bool>
+					<Ref name="RootLocalizationTable">null</Ref>
+					<float name="Rotation">0</float>
+					<bool name="Selectable">true</bool>
+					<bool name="Selected">false</bool>
+					<token name="SelectionBehaviorDown">0</token>
+					<token name="SelectionBehaviorLeft">0</token>
+					<token name="SelectionBehaviorRight">0</token>
+					<token name="SelectionBehaviorUp">0</token>
+					<bool name="SelectionGroup">false</bool>
+					<Ref name="SelectionImageObject">null</Ref>
+					<int name="SelectionOrder">0</int>
+					<UDim2 name="Size">
+						<XS>0.100000001</XS>
+						<XO>0</XO>
+						<YS>0.0500000007</YS>
+						<YO>0</YO>
+					</UDim2>
+					<token name="SizeConstraint">0</token>
+					<int64 name="SourceAssetId">-1</int64>
+					<token name="Style">0</token>
+					<BinaryString name="Tags"></BinaryString>
+					<string name="Text">craft</string>
+					<Color3 name="TextColor3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<bool name="TextScaled">false</bool>
+					<float name="TextSize">14</float>
+					<Color3 name="TextStrokeColor3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<float name="TextStrokeTransparency">1</float>
+					<float name="TextTransparency">0</float>
+					<token name="TextTruncate">0</token>
+					<bool name="TextWrapped">false</bool>
+					<token name="TextXAlignment">2</token>
+					<token name="TextYAlignment">1</token>
+					<UniqueId name="UniqueId">06803fd92c6e2827029c2e050006d28e</UniqueId>
+					<bool name="Visible">true</bool>
+					<int name="ZIndex">1</int>
+				</Properties>
+			</Item>
+		</Item>
 	</Item>
 	<Item class="LocalizationService" referent="RBX424F1C4C240042888E9411D5D11CBB1D">
 		<Properties>
@@ -1479,6 +1597,10 @@ local function onCharacterAdded(character)
     end
 end
 
+local function onCharacterRemoving(player)
+    -- make data 0
+end
+
 local function takesPotion(player, potion)
     local data = Sdk.data
     local potions = data[player].Potions
@@ -1547,6 +1669,7 @@ local function onPlayerAdded(player)
     warn('MESSAGE/Info: Data has been added for ' .. player.Name .. '.')
 
     player.CharacterAdded:Connect(onCharacterAdded)
+    player.CharacterRemoving:Connect(onCharacterRemoving)
 
     while true do
         task.wait()
@@ -1556,9 +1679,15 @@ local function onPlayerAdded(player)
     end
 end
 
-local function onPlayerRemoving(player)
+
+local function removePlayerData(player)
     local data = Sdk.data
-    data[player] = nil
+    local playerIndex = table.find(data, player)
+    table.remove(data, playerIndex)
+end 
+
+local function onPlayerRemoving(player)
+    removePlayerData(player)
 
     warn('MESSAGE/Info:  Data has been removed for ' .. player.Name .. '.')
 end
@@ -1638,8 +1767,6 @@ function Sdk.initialize()
     potionEvent.Name = 'PotionEvent'
     local craftEvent = Instance.new('RemoteEvent', KLEvents)
     craftEvent.Name = 'CraftEvent'
-    local craftingVisibleEvent = Instance.new('RemoteEvent', KLEvents)
-    craftingVisibleEvent.Name = 'CraftingVisibleEvent'
 
     --/ Event Bindings
     potionEvent.OnServerEvent:Connect(takesPotion)

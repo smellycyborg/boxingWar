@@ -2,11 +2,12 @@ local KLItems = require(game.ReplicatedStorage.Common.KLItems)
 
 local PlayerGui = game.Players.LocalPlayer.PlayerGui
 local CraftingGui = PlayerGui:WaitForChild('CraftingGui')
+local MainGui = PlayerGui:WaitForChild('MainGui')
 local CraftingCategories = CraftingGui.CraftingCategories
 local CraftingItems = CraftingGui.CraftingItems
 local KLEvents = game.ReplicatedStorage:WaitForChild('KLEvents')
 local CraftEvent = KLEvents.CraftEvent
-local CraftingVisibleEvent = KLEvents.CraftingVisibleEvent
+local CraftButton = MainGui.CraftButton
 
 local function onItemClick(toCraft)
     CraftEvent:FireServer(toCraft)
@@ -19,13 +20,14 @@ local function handleButtonInstance(value, parent)
     button.BackgroundTransparency = 1
     button.BackgroundColor3 = Color3.new(0, 0, 0)
     button.BorderSizePixel = 0
-    button.TextColor3 = Color3.new(255, 255, 255)
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
 
     button.MouseButton1Down:Connect(function()
         onItemClick(button.Name)
     end)
 end
 
+local isOpen = nil
 local function createItemButtons(category)
     local function destroyOldButtons()
         for _, v in pairs(CraftingItems:GetChildren()) do
@@ -34,14 +36,20 @@ local function createItemButtons(category)
             end
         end
     end
-    destroyOldButtons()
+    if isOpen ~= category then
+        destroyOldButtons()
 
-    for categoryIndex, items in pairs(KLItems.CraftingItems) do
-        if categoryIndex == category then
-            for item, _ in pairs(items) do
-                handleButtonInstance(item, CraftingItems)
+        for categoryIndex, items in pairs(KLItems.CraftingItems) do
+            if categoryIndex == category then
+                for item, _ in pairs(items) do
+                    handleButtonInstance(item, CraftingItems)
+                end
             end
         end
+        isOpen = category
+    else
+        destroyOldButtons()
+        isOpen = nil
     end
 end
 
@@ -63,4 +71,4 @@ local function handleCraftingVisible()
 end
 
 -- / Bindings
-CraftingVisibleEvent.OnClientEvent:Connect(handleCraftingVisible)
+CraftButton.MouseButton1Down:Connect(handleCraftingVisible)

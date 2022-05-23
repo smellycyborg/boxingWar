@@ -31,6 +31,10 @@ local function onCharacterAdded(character)
     end
 end
 
+local function onCharacterRemoving(player)
+    -- make data 0
+end
+
 local function takesPotion(player, potion)
     local data = Sdk.data
     local potions = data[player].Potions
@@ -99,6 +103,7 @@ local function onPlayerAdded(player)
     warn('MESSAGE/Info: Data has been added for ' .. player.Name .. '.')
 
     player.CharacterAdded:Connect(onCharacterAdded)
+    player.CharacterRemoving:Connect(onCharacterRemoving)
 
     while true do
         task.wait()
@@ -108,9 +113,15 @@ local function onPlayerAdded(player)
     end
 end
 
-local function onPlayerRemoving(player)
+
+local function removePlayerData(player)
     local data = Sdk.data
-    data[player] = nil
+    local playerIndex = table.find(data, player)
+    table.remove(data, playerIndex)
+end 
+
+local function onPlayerRemoving(player)
+    removePlayerData(player)
 
     warn('MESSAGE/Info:  Data has been removed for ' .. player.Name .. '.')
 end
@@ -190,8 +201,6 @@ function Sdk.initialize()
     potionEvent.Name = 'PotionEvent'
     local craftEvent = Instance.new('RemoteEvent', KLEvents)
     craftEvent.Name = 'CraftEvent'
-    local craftingVisibleEvent = Instance.new('RemoteEvent', KLEvents)
-    craftingVisibleEvent.Name = 'CraftingVisibleEvent'
 
     --/ Event Bindings
     potionEvent.OnServerEvent:Connect(takesPotion)
