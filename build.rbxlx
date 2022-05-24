@@ -81,27 +81,27 @@
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<CoordinateFrame name="CFrame">
-					<X>-16.2604923</X>
-					<Y>14.8060236</Y>
-					<Z>-7.79492331</Z>
-					<R00>-0.999780178</R00>
-					<R01>-0.0149809355</R01>
-					<R02>0.014670372</R02>
-					<R10>-0</R10>
-					<R11>0.699662268</R11>
-					<R12>0.714473724</R12>
-					<R20>-0.0209677909</R20>
-					<R21>0.714316666</R21>
-					<R22>-0.699508429</R22>
+					<X>-59.7469254</X>
+					<Y>24.9826355</Y>
+					<Z>7.93021488</Z>
+					<R00>-0.425788224</R00>
+					<R01>0.504659593</R01>
+					<R02>-0.751014829</R02>
+					<R10>1.49011594e-08</R10>
+					<R11>0.830013096</R11>
+					<R12>0.557744086</R12>
+					<R20>0.904822826</R20>
+					<R21>0.237480849</R21>
+					<R22>-0.353409797</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
 				<token name="CameraType">0</token>
 				<float name="FieldOfView">70</float>
 				<token name="FieldOfViewMode">0</token>
 				<CoordinateFrame name="Focus">
-					<X>-16.2898331</X>
-					<Y>13.3770761</Y>
-					<Z>-6.39590645</Z>
+					<X>-58.2448959</X>
+					<Y>23.8671474</Y>
+					<Z>8.63703442</Z>
 					<R00>1</R00>
 					<R01>0</R01>
 					<R02>0</R02>
@@ -427,6 +427,222 @@ gcLgc4RKxr21zq2UlJSM]]></BinaryString>
 				</Properties>
 			</Item>
 		</Item>
+		<Item class="Part" referent="RBXFB38203AB7854A9A815899D25ABF9211">
+			<Properties>
+				<bool name="Anchored">true</bool>
+				<BinaryString name="AttributesSerialize">AQAAAAYAAABTdHJpbmcCAwAAAEp1Zw==</BinaryString>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>-48</X>
+					<Y>2.75</Y>
+					<Z>56</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">256</token>
+				<string name="MaterialVariantSerialized"></string>
+				<string name="Name">JugMaster</string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">-16</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<UniqueId name="UniqueId">776e8ee4293f8fde029d7925002f112b</UniqueId>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="formFactorRaw">1</token>
+				<token name="shape">1</token>
+				<Vector3 name="size">
+					<X>4</X>
+					<Y>5.5</Y>
+					<Z>2</Z>
+				</Vector3>
+			</Properties>
+			<Item class="ProximityPrompt" referent="RBX7A6A162852D241C08AD9804278D2110C">
+				<Properties>
+					<string name="ActionText">Interact</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<bool name="AutoLocalize">true</bool>
+					<bool name="ClickablePrompt">true</bool>
+					<bool name="Enabled">true</bool>
+					<token name="Exclusivity">0</token>
+					<token name="GamepadKeyCode">1000</token>
+					<float name="HoldDuration">0</float>
+					<token name="KeyboardKeyCode">101</token>
+					<float name="MaxActivationDistance">10</float>
+					<string name="Name">ProximityPrompt</string>
+					<string name="ObjectText"></string>
+					<bool name="RequiresLineOfSight">true</bool>
+					<Ref name="RootLocalizationTable">null</Ref>
+					<int64 name="SourceAssetId">-1</int64>
+					<token name="Style">0</token>
+					<BinaryString name="Tags"></BinaryString>
+					<Vector2 name="UIOffset">
+						<X>0</X>
+						<Y>0</Y>
+					</Vector2>
+					<UniqueId name="UniqueId">776e8ee4293f8fde029d7925002f2540</UniqueId>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Part" referent="RBX2971E273299141F69B527519507D9764">
+			<Properties>
+				<bool name="Anchored">false</bool>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>-37.25</X>
+					<Y>0.5</Y>
+					<Z>55.75</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4280374457</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">1296</token>
+				<string name="MaterialVariantSerialized"></string>
+				<string name="Name">Water</string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<UniqueId name="UniqueId">776e8ee4293f8fde029d7925002f1870</UniqueId>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="formFactorRaw">1</token>
+				<token name="shape">1</token>
+				<Vector3 name="size">
+					<X>4</X>
+					<Y>1</Y>
+					<Z>2</Z>
+				</Vector3>
+			</Properties>
+		</Item>
 	</Item>
 	<Item class="SoundService" referent="7">
 		<Properties>
@@ -627,7 +843,7 @@ gcLgc4RKxr21zq2UlJSM]]></BinaryString>
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse('Mouse')
 
-local potion = 'fullHealth'
+local potion = 'HalfPot'
 
 mouse.Button1Up:Connect(function()
     potionEvent:FireServer(potion)
@@ -690,7 +906,7 @@ local function createItemButtons(category)
     if isOpen ~= category then
         destroyOldButtons()
 
-        for categoryIndex, items in pairs(KLItems.CraftingItems) do
+        for categoryIndex, items in pairs(KLItems.Items) do
             if categoryIndex == category then
                 for item, _ in pairs(items) do
                     handleButtonInstance(item, CraftingItems)
@@ -831,7 +1047,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 				<bool name="Enabled">false</bool>
 				<bool name="IgnoreGuiInset">false</bool>
 				<string name="Name">CraftingGui</string>
-				<bool name="ResetOnSpawn">true</bool>
+				<bool name="ResetOnSpawn">false</bool>
 				<Ref name="RootLocalizationTable">null</Ref>
 				<token name="SelectionBehaviorDown">0</token>
 				<token name="SelectionBehaviorLeft">0</token>
@@ -936,7 +1152,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<float name="LineHeight">1</float>
 						<int name="MaxVisibleGraphemes">-1</int>
 						<bool name="Modal">false</bool>
-						<string name="Name">Tools</string>
+						<string name="Name">Potions</string>
 						<Ref name="NextSelectionDown">null</Ref>
 						<Ref name="NextSelectionLeft">null</Ref>
 						<Ref name="NextSelectionRight">null</Ref>
@@ -969,7 +1185,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<int64 name="SourceAssetId">-1</int64>
 						<token name="Style">0</token>
 						<BinaryString name="Tags"></BinaryString>
-						<string name="Text">tools</string>
+						<string name="Text">potions</string>
 						<Color3 name="TextColor3">
 							<R>1</R>
 							<G>1</G>
@@ -1021,6 +1237,95 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 					</Properties>
 				</Item>
 				<Item class="TextButton" referent="RBXC65F2DC68FE743A5903F08BBD39E3F50">
+					<Properties>
+						<bool name="Active">true</bool>
+						<Vector2 name="AnchorPoint">
+							<X>0.5</X>
+							<Y>0.5</Y>
+						</Vector2>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<bool name="AutoButtonColor">true</bool>
+						<bool name="AutoLocalize">true</bool>
+						<token name="AutomaticSize">0</token>
+						<Color3 name="BackgroundColor3">
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
+						</Color3>
+						<float name="BackgroundTransparency">1</float>
+						<Color3 name="BorderColor3">
+							<R>0.105882362</R>
+							<G>0.164705887</G>
+							<B>0.207843155</B>
+						</Color3>
+						<token name="BorderMode">0</token>
+						<int name="BorderSizePixel">0</int>
+						<bool name="ClipsDescendants">false</bool>
+						<bool name="Draggable">false</bool>
+						<token name="Font">3</token>
+						<Font name="FontFace"></Font>
+						<int name="LayoutOrder">0</int>
+						<float name="LineHeight">1</float>
+						<int name="MaxVisibleGraphemes">-1</int>
+						<bool name="Modal">false</bool>
+						<string name="Name">Tools</string>
+						<Ref name="NextSelectionDown">null</Ref>
+						<Ref name="NextSelectionLeft">null</Ref>
+						<Ref name="NextSelectionRight">null</Ref>
+						<Ref name="NextSelectionUp">null</Ref>
+						<UDim2 name="Position">
+							<XS>0.5</XS>
+							<XO>0</XO>
+							<YS>0.5</YS>
+							<YO>0</YO>
+						</UDim2>
+						<bool name="RichText">false</bool>
+						<Ref name="RootLocalizationTable">null</Ref>
+						<float name="Rotation">0</float>
+						<bool name="Selectable">true</bool>
+						<bool name="Selected">false</bool>
+						<token name="SelectionBehaviorDown">0</token>
+						<token name="SelectionBehaviorLeft">0</token>
+						<token name="SelectionBehaviorRight">0</token>
+						<token name="SelectionBehaviorUp">0</token>
+						<bool name="SelectionGroup">false</bool>
+						<Ref name="SelectionImageObject">null</Ref>
+						<int name="SelectionOrder">0</int>
+						<UDim2 name="Size">
+							<XS>1</XS>
+							<XO>0</XO>
+							<YS>0.200000003</YS>
+							<YO>0</YO>
+						</UDim2>
+						<token name="SizeConstraint">0</token>
+						<int64 name="SourceAssetId">-1</int64>
+						<token name="Style">0</token>
+						<BinaryString name="Tags"></BinaryString>
+						<string name="Text">tools</string>
+						<Color3 name="TextColor3">
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
+						</Color3>
+						<bool name="TextScaled">false</bool>
+						<float name="TextSize">14</float>
+						<Color3 name="TextStrokeColor3">
+							<R>0</R>
+							<G>0</G>
+							<B>0</B>
+						</Color3>
+						<float name="TextStrokeTransparency">1</float>
+						<float name="TextTransparency">0</float>
+						<token name="TextTruncate">0</token>
+						<bool name="TextWrapped">false</bool>
+						<token name="TextXAlignment">2</token>
+						<token name="TextYAlignment">1</token>
+						<UniqueId name="UniqueId">3a30e11299ecaa2c029081430004d084</UniqueId>
+						<bool name="Visible">true</bool>
+						<int name="ZIndex">1</int>
+					</Properties>
+				</Item>
+				<Item class="TextButton" referent="RBX651F03D70BC8443CA5BE675FD8756C3F">
 					<Properties>
 						<bool name="Active">true</bool>
 						<Vector2 name="AnchorPoint">
@@ -1104,7 +1409,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 						<bool name="TextWrapped">false</bool>
 						<token name="TextXAlignment">2</token>
 						<token name="TextYAlignment">1</token>
-						<UniqueId name="UniqueId">3a30e11299ecaa2c029081430004d084</UniqueId>
+						<UniqueId name="UniqueId">776e8ee4293f8fde029d7925002616f8</UniqueId>
 						<bool name="Visible">true</bool>
 						<int name="ZIndex">1</int>
 					</Properties>
@@ -1208,7 +1513,7 @@ runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRender
 				<bool name="Enabled">true</bool>
 				<bool name="IgnoreGuiInset">false</bool>
 				<string name="Name">MainGui</string>
-				<bool name="ResetOnSpawn">true</bool>
+				<bool name="ResetOnSpawn">false</bool>
 				<Ref name="RootLocalizationTable">null</Ref>
 				<token name="SelectionBehaviorDown">0</token>
 				<token name="SelectionBehaviorLeft">0</token>
@@ -1584,13 +1889,24 @@ local Sdk = {
 }
 
 local function onCharacherTouched(part, player)
-    local attribute = part:GetAttribute('String')
-    if not attribute then return end
-
     local data = Sdk.data
-    data[player].Materials[attribute].amount+=1
-    part:Destroy()
-    print('MESSAGE/Info: ' .. player.Name .. ' has picked up a ' .. attribute .. ' and their ' .. attribute .. ' are now ' .. data[player].Materials[attribute] .. '.')
+    local attributeIsUse = part:GetAttribute('ItemForUse')
+    local attributeIsPickUp = part:GetAttribute('ItemForPickUp')
+    if attributeIsPickUp then
+        data[player].Materials[attributeIsPickUp].amount+=1
+        part:Destroy()
+        print('MESSAGE/Info: ' .. player.Name .. ' has picked up a ' .. attributeIsPickUp .. ' and their ' .. attributeIsPickUp .. ' are now ' .. data[player].Materials[attributeIsPickUp].amount .. '.')
+    end
+    
+    if attributeIsUse.Value == 'Water' and data[player].Items['Tools']['Jug'].hasJug then
+        data[player].Items['Tools']['Jug'].hasWater = true
+    else
+        return
+    end
+
+    if attributeIsUse.Value == 'Fire' and data[player].Items['Tools']['Jug'].hasJug then
+        data[player].Materials['PureWater']+=1
+    end
 end
 
 local function onCharacterAdded(character)
@@ -1598,8 +1914,8 @@ local function onCharacterAdded(character)
     local characterChildren = character:GetChildren()
 
     for _, v in pairs(characterChildren) do
-        local isPart = v:IsA('Part')
-        if isPart then
+        local isItemForPickUp = v:GetAttribute('ItemForPickUp')
+        if isItemForPickUp then
             v.Touched:Connect(function(part)
                 onCharacherTouched(part, player)
             end)
@@ -1631,21 +1947,22 @@ end
 
 local function takesPotion(player, potion)
     local data = Sdk.data
-    local potions = data[player].Potions
-    local potionBool = potions[potion].bool
+    local potions = data[player].Items['Potions']
+    local potionAmount = potions[potion].amount
     local potionValue = potions[potion].value
 
-    local hasPotion = potionBool == true
+    local hasPotion = potionAmount > 0
     if hasPotion then
-        data[player].Potions[potion].bool = false
+        data[player].Items['Potions'][potion].amount-=1
         KLDealer.addHealth(player, potionValue)
 
         print('MESSAGE/Info: ' .. player.Name .. ' took a '.. potion .. ' potion and has been given more health.  :)')
+    else
+        print('MESSAGE/Info: ' .. player.Name .. ' has no potion.')
     end
 end
 
 local function onPlayerAdded(player)
-
     local data = Sdk.data
     data[player] = {}
 
@@ -1657,17 +1974,12 @@ local function onPlayerAdded(player)
 
     --/ crafting items
     data[player].Items = {}
-    for category, items in pairs(KLItems.CraftingItems) do
+    for category, items in pairs(KLItems.Items) do
         data[player].Items[category] = {}
         for item, _ in pairs(items) do
             data[player].Items[category][item] = {amount = 0, }
         end
     end
-
-    --/ potions
-    data[player].Potions = {}
-    data[player].Potions['halfHealth'] = {bool = true, value = 50}
-    data[player].Potions['fullHealth'] = {bool = true, value = 100}
 
     --/ canHurt
     data[player].canHurt = true
@@ -1712,7 +2024,7 @@ local function removePlayerData(player)
     local data = Sdk.data
     local playerIndex = table.find(data, player)
     table.remove(data, playerIndex)
-end 
+end
 
 local function onPlayerRemoving(player)
     removePlayerData(player)
@@ -1728,12 +2040,16 @@ local function cloneMaterials(material)
         local materialClone = material:Clone()
         materialClone.Parent = workspace
         materialClone.Position = KLPositions.positionfy(materialClone)
-        materialClone:SetAttribute('String', tostring(material))
+        materialClone:SetAttribute('ItemForPickUp', tostring(material))
     end
 end
 
 local function createMaterials(materials)
     for _, material in pairs(materials) do
+        local isPureWater = material == 'PureWater'
+        if isPureWater then 
+            continue
+        end
         cloneMaterials(material)
     end
 end
@@ -1762,12 +2078,13 @@ local function doesPlayerHaveEnoughMaterials(itemData, playerData)
 end
 
 local function handleDataForCraft()
+
 end
 
 local function handleCraft(player, itemToCraft)
     local data = Sdk.data 
-    local CraftingItems = KLItems.CraftingItems
-    local itemToCraftData = findItemData(CraftingItems, itemToCraft)
+    local Items = KLItems.ItemsItems
+    local itemToCraftData = findItemData(Items, itemToCraft)
     local playerInventory = data[player].Items[itemToCraftData.TypeOfItem]
     local playerMaterials = data[player].Materials
 
@@ -1781,6 +2098,15 @@ local function handleCraft(player, itemToCraft)
         end
 
         print('MESSAGE/Info:  ' .. player.Name .. ' has crafted a ' .. itemToCraft .. '.')
+    end
+end
+
+local function handleJugMasterPromp(player)
+    local data = Sdk.data
+    if not data[player].Items['Tools']['Jug'].hasItem then
+        data[player].Items['Tools']['Jug'].hasItem = true
+    else
+        return
     end
 end
 
@@ -1801,6 +2127,7 @@ function Sdk.initialize()
 
     game.Players.PlayerAdded:Connect(onPlayerAdded)
     game.Players.PlayerRemoving:Connect(onPlayerRemoving)
+    game.Workspace.JugMaster.ProximityPrompt.Triggered:Connect(handleJugMasterPromp)
 end
 
 return Sdk]]></ProtectedString>
@@ -1963,8 +2290,8 @@ end]]></ProtectedString>
 					<string name="Name">KLItems</string>
 					<string name="ScriptGuid">{37E3EE8E-B464-4B47-9CCF-0323B19EF931}</string>
 					<ProtectedString name="Source"><![CDATA[local KLItems = {
-    Materials = { 'Sticks', 'Stone', },
-    CraftingItems = {
+    Materials = { 'Sticks', 'Stone', 'Leaves', 'PureWater'},
+    Items = {
         Weapons = { 
             ['StoneSword'] = {
                 ['TypeOfItem'] = 'Weapons',
@@ -1986,7 +2313,36 @@ end]]></ProtectedString>
                 ['TypeOfItem'] = 'Tools',
                 ['MaterialsNeeded'] = {
                     ['Sticks'] = 2,
-                    ['Stone'] = 1
+                    ['Stone'] = 1,
+                },
+            },
+            ['Jug'] = {
+                ['TypeOfItem'] = 'Tools',
+                ['hasItem'] = false,
+                ['hasWater'] = false,
+            },
+        },
+        Potions = {
+            ['HalfPot'] = {
+                ['TypeOfItem'] = 'Potion',
+                ['MaterialsNeeded'] = {
+                    ['Leaves'] = 1,
+                    ['PureWater'] = 1,
+                },
+                ['Stats'] = {
+                    amount = 0,
+                    value = 50,
+                },
+            },
+            ['FullPot'] = {
+                ['TypeOfItem'] = 'Potion',
+                ['MaterialsNeeded'] = {
+                    ['Leaves'] = 1,
+                    ['PureWater'] = 1,
+                },
+                ['Stats'] = {
+                    amount = 0,
+                    value = 100,
                 },
             },
         }
@@ -4820,6 +5176,101 @@ return ZonePlusReference]]></ProtectedString>
 					</Vector3>
 				</Properties>
 			</Item>
+			<Item class="Part" referent="RBX4F02692FF8CE41FEA39F9D3AD54BEADD">
+				<Properties>
+					<bool name="Anchored">false</bool>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-28</X>
+						<Y>0.5</Y>
+						<Z>-0.5</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">true</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4280844103</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">false</bool>
+					<token name="Material">1280</token>
+					<string name="MaterialVariantSerialized"></string>
+					<string name="Name">Leaves</string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<UniqueId name="UniqueId">776e8ee4293f8fde029d79250004c6fa</UniqueId>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<token name="formFactorRaw">1</token>
+					<token name="shape">1</token>
+					<Vector3 name="size">
+						<X>4</X>
+						<Y>1</Y>
+						<Z>2</Z>
+					</Vector3>
+				</Properties>
+			</Item>
 		</Item>
 	</Item>
 	<Item class="LuaWebService" referent="RBX4FBF85C07EAF43C9BFA8DADA474F902E">
@@ -4895,6 +5346,17 @@ return ZonePlusReference]]></ProtectedString>
 			<UniqueId name="UniqueId">440bc071e0b54ab3023da9940001af3d</UniqueId>
 		</Properties>
 	</Item>
+	<Item class="ProximityPromptService" referent="RBX06A62926D65E445E96E0C7BBE0F7BA5D">
+		<Properties>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<bool name="Enabled">true</bool>
+			<int name="MaxPromptsVisible">16</int>
+			<string name="Name">ProximityPromptService</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<BinaryString name="Tags"></BinaryString>
+			<UniqueId name="UniqueId">4f5bea1deb0b79f0023db021000c808a</UniqueId>
+		</Properties>
+	</Item>
 	<Item class="LanguageService" referent="RBX5B2238E259214CE9AE19BA6DC9D583D9">
 		<Properties>
 			<BinaryString name="AttributesSerialize"></BinaryString>
@@ -4923,15 +5385,13 @@ return ZonePlusReference]]></ProtectedString>
 			<UniqueId name="UniqueId">440bc071e0b54ab3023da99400024a1b</UniqueId>
 		</Properties>
 	</Item>
-	<Item class="ProximityPromptService" referent="RBX06A62926D65E445E96E0C7BBE0F7BA5D">
+	<Item class="PluginToolbar" referent="RBXCD714EB74F2D466090307355B4204D2F">
 		<Properties>
 			<BinaryString name="AttributesSerialize"></BinaryString>
-			<bool name="Enabled">true</bool>
-			<int name="MaxPromptsVisible">16</int>
-			<string name="Name">ProximityPromptService</string>
+			<string name="Name">dirtpeePluginBar</string>
 			<int64 name="SourceAssetId">-1</int64>
 			<BinaryString name="Tags"></BinaryString>
-			<UniqueId name="UniqueId">4f5bea1deb0b79f0023db021000c808a</UniqueId>
+			<UniqueId name="UniqueId">49a81d72f7b68b8d029dcc3f000299ce</UniqueId>
 		</Properties>
 	</Item>
 	<SharedStrings>

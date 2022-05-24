@@ -22,8 +22,13 @@ local KLItems = {
                 ['TypeOfItem'] = 'Tools',
                 ['MaterialsNeeded'] = {
                     ['Sticks'] = 2,
-                    ['Stone'] = 1
+                    ['Stone'] = 1,
                 },
+            },
+            ['Jug'] = {
+                ['TypeOfItem'] = 'Tools',
+                ['hasItem'] = false,
+                ['hasWater'] = false,
             },
         },
         Potions = {
@@ -46,7 +51,7 @@ local KLItems = {
                 },
                 ['Stats'] = {
                     amount = 0,
-                    value = 100
+                    value = 100,
                 },
             },
         }

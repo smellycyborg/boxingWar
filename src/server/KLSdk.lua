@@ -8,13 +8,24 @@ local Sdk = {
 }
 
 local function onCharacherTouched(part, player)
-    local attribute = part:GetAttribute('String')
-    if not attribute then return end
-
     local data = Sdk.data
-    data[player].Materials[attribute].amount+=1
-    part:Destroy()
-    print('MESSAGE/Info: ' .. player.Name .. ' has picked up a ' .. attribute .. ' and their ' .. attribute .. ' are now ' .. data[player].Materials[attribute].amount .. '.')
+    local attributeIsUse = part:GetAttribute('ItemForUse')
+    local attributeIsPickUp = part:GetAttribute('ItemForPickUp')
+    if attributeIsPickUp then
+        data[player].Materials[attributeIsPickUp].amount+=1
+        part:Destroy()
+        print('MESSAGE/Info: ' .. player.Name .. ' has picked up a ' .. attributeIsPickUp .. ' and their ' .. attributeIsPickUp .. ' are now ' .. data[player].Materials[attributeIsPickUp].amount .. '.')
+    end
+    
+    if attributeIsUse.Value == 'Water' and data[player].Items['Tools']['Jug'].hasJug then
+        data[player].Items['Tools']['Jug'].hasWater = true
+    else
+        return
+    end
+
+    if attributeIsUse.Value == 'Fire' and data[player].Items['Tools']['Jug'].hasJug then
+        data[player].Materials['PureWater']+=1
+    end
 end
 
 local function onCharacterAdded(character)
@@ -22,8 +33,8 @@ local function onCharacterAdded(character)
     local characterChildren = character:GetChildren()
 
     for _, v in pairs(characterChildren) do
-        local isPart = v:IsA('Part')
-        if isPart then
+        local isItemForPickUp = v:GetAttribute('ItemForPickUp')
+        if isItemForPickUp then
             v.Touched:Connect(function(part)
                 onCharacherTouched(part, player)
             end)
@@ -132,7 +143,7 @@ local function removePlayerData(player)
     local data = Sdk.data
     local playerIndex = table.find(data, player)
     table.remove(data, playerIndex)
-end 
+end
 
 local function onPlayerRemoving(player)
     removePlayerData(player)
@@ -148,7 +159,7 @@ local function cloneMaterials(material)
         local materialClone = material:Clone()
         materialClone.Parent = workspace
         materialClone.Position = KLPositions.positionfy(materialClone)
-        materialClone:SetAttribute('String', tostring(material))
+        materialClone:SetAttribute('ItemForPickUp', tostring(material))
     end
 end
 
@@ -186,6 +197,7 @@ local function doesPlayerHaveEnoughMaterials(itemData, playerData)
 end
 
 local function handleDataForCraft()
+
 end
 
 local function handleCraft(player, itemToCraft)
@@ -208,6 +220,15 @@ local function handleCraft(player, itemToCraft)
     end
 end
 
+local function handleJugMasterPromp(player)
+    local data = Sdk.data
+    if not data[player].Items['Tools']['Jug'].hasItem then
+        data[player].Items['Tools']['Jug'].hasItem = true
+    else
+        return
+    end
+end
+
 function Sdk.initialize()
     createMaterials(KLItems.Materials)
 
@@ -225,6 +246,7 @@ function Sdk.initialize()
 
     game.Players.PlayerAdded:Connect(onPlayerAdded)
     game.Players.PlayerRemoving:Connect(onPlayerRemoving)
+    game.Workspace.JugMaster.ProximityPrompt.Triggered:Connect(handleJugMasterPromp)
 end
 
 return Sdk
